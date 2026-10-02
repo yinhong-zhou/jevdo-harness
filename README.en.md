@@ -1,39 +1,100 @@
 <p align="center"><img src="assets/brand/jevdo-icon.png" width="112" alt="JevDo" /></p>
 <h1 align="center">JevDo Harness</h1>
 <p align="center"><strong>The model is a tool now.</strong></p>
-<p align="center">Jev orchestrates. Actions retain proven operations. The main model handles new problems.</p>
+<p align="center"><strong>An agent harness that judges, learns reusable operations, and coordinates agents.</strong></p>
+<p align="center">A new harness architecture with Jev at its orchestration core.<br/>Actions retain experience · Jev chooses the next step · The main model is one option</p>
 <p align="center"><em>Just Jev it.</em></p>
-<p align="center"><a href="README.md">简体中文</a> · <strong>English</strong> · <a href="docs/MIGRATION.md">35 judgment points</a> · <a href="reports/unified-v1/ANALYSIS.md">Evaluation</a></p>
+<p align="center"><a href="README.md">简体中文</a> · <strong>English</strong> · <a href="docs/CONFIGURATION.md">Configuration</a> · <a href="docs/MIGRATION.md">35 judgment points</a> · <a href="reports/unified-v1/ANALYSIS.md">Evaluation</a></p>
 
-Your coding agent already knows how to start the project and run its tests. Why should it generate those operations again tomorrow?
+What to do next. Which information to keep. Who needs a finding. When the work is actually done. These judgments connect every part of an agent's work.
 
-**JevDo Harness puts Jev in charge of the next step.** When a verified Action can do the work, the harness executes it through the host's tools. When a task needs new reasoning, code, or recovery, Jev calls the main model. The same judgment kernel also controls context admission, skills, permissions, memory, progress and communication between agents.
+**JevDo Harness puts Jev at the center of that work.** A verified Action handles a familiar operation directly. New reasoning, code changes and recovery go to the main model. Throughout execution, Jev also participates in context selection, task constraints, memory and communication between agents. As the main model solves new problems, it can save proven operations for the next session.
 
-An independent **DeepSeek Harness default-loop replacement**, combining [JevDo](https://github.com/yinhong-zhou/jevdo)'s persistent Actions with all 35 pinned [MU](https://github.com/qybaihe/mu) judgment definitions, adapted to native DSH/Cordis services. Targets **DSH 0.2.0-rc.1 and Node.js 24.14+**. No Pi runtime.
+Built on [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness), combining [JevDo](https://github.com/yinhong-zhou/jevdo)'s Action loop with [MU](https://github.com/qybaihe/mu)'s 35 judgment points. Delivered as a **DSH default Agent Loop replacement plugin**, using the host's tools, permissions and session system.
 
-## A handoff
+## Put Jev at the core of the agent loop
+
+**Calling the main model becomes one of Jev's choices.**
+
+We replace DSH's default loop driver. Before choosing the next step, Jev reads the assembled conversation, tool records and eligible Action candidates. It can select an Action, call the main model, or enter clarification and completion paths. Action results return to the shared history for the next decision; when needed, the main model continues from that same record.
+
+```text
+                      Jev chooses the next step
+                     /           |            \
+                  Action     Main model     Clarify / completion check
+                     \           |
+                    Host permissions → Tool execution
+                                           |
+                              Results return to shared history
+                                           └──────────→ Jev
+```
+
+With multiple configured models, Jev can also select a model at task boundaries; an explicit user selection takes priority. Actions and parameters come from valid candidates. The executor checks project scope, implementation freshness and actual effects.
+
+**Actions turn a successful operation into a reusable capability.**
+
+A command, a startup script, or a test-and-build sequence can become an Action. Authoring instructions and tools let the main model maintain the library proactively; users can also request it explicitly. Each operation has a purpose, project binding, verifier and version evidence. Drafts become reusable only after execution and verification; implementation changes require revalidation. Simple operations stay commands, while complex procedures should use maintained project scripts.
+
+With the corresponding Actions available, a handoff can look like this:
 
 ```text
 “Start the project, add a function, then run tests and build.”
 
-Jev          → saved start Action → host execution → readiness check
+Jev          → start Action → host execution → health check
 Main model   → understand the request → edit code
-Jev          → saved test/build Actions → verify current artifacts
+Jev          → test/build Actions → verify current artifacts
 Main model   → explain changes and results
 ```
 
-For a pure repeat request such as “start the project,” valid Actions can finish with **zero main-model calls**. Jev requests still have a cost. The model can save useful commands or scripts as Actions while solving new tasks. Draft creation, execution, verification and activation are separate; stale implementations are revalidated.
+For a pure repeat request such as “start the project,” valid Actions can finish with **zero main-model calls** once execution and verification succeed. Jev inference still has a cost.
 
-## What is integrated
+## Judgment throughout execution
 
-- **Orchestration:** closed-choice Actions, project bindings, model handoff, clarification and completion; optional configured model routing.
-- **Context and control:** native skills, tool packs, log selection, recoverable output archives, task constraints, risk checks, goals and project lessons.
-- **Teams:** native DSH workers, conversation forks, Git worktrees, publication/delivery gates and explicit disputed findings. Isolated patches include new files and are returned for review.
-- **Observation:** a human progress feed outside the working transcript; optional real Chrome/Edge automation, checker diagnostics, workspace notifications and cache warming.
+> **μ · Only what's needed.** — [MU](https://github.com/qybaihe/mu)
 
-Jev scheduling and the main model consume the same assembled and admitted history. Native surface replacements preserve call/result pairing and raw event records. Each point supports `active`, `shadow` or `off`. No semantic verdict can override a host permission denial.
+MU brings Jev into the small decisions around an agent's work. We reuse its judgment kernel and 35 decision points, adapt their effects to native DSH services, and share the judgment infrastructure with the Action loop. Jev participates in both who handles the next step and how that step proceeds.
+
+| Area | What Jev helps decide |
+|---|---|
+| **Input and tasks · 3** | New task or correction; updates to goals and constraints; interrupt or queue incoming input. |
+| **Context · 6** | Relevant skills and tool packs; useful output blocks; repetitive test lines; old results to archive. |
+| **Tools and execution · 7** | Constraints and extra approval; file candidates; browser operations; review priorities and diagnostic delivery. |
+| **Memory · 6** | Recall, user corrections, recovery lessons, usefulness, duplicates and conflicts, and actual application. |
+| **Progress and completion · 5** | Drift and repetition; checkpoint advice; output constraints; acceptance checks and persistent goals. |
+| **Agent collaboration · 5** | Worker routing and patch review; publishing findings, choosing recipients and relating evidence. |
+| **Reporting and observation · 3** | Useful progress updates; file-change notifications; whether to warm the cache when enabled. |
+
+The 35 points run when their events occur. Each supports `active`, `shadow` and `off`, with an audit record of its decisions. See the [full mapping](docs/MIGRATION.md) for names, sources and adaptations.
+
+**Context stays connected to execution.** Jev's Action scheduler and the main model consume the same assembled and filtered conversation and tool records. Specialized judgments receive the state relevant to their question. Raw outputs remain in DSH event logs and recoverable archives. Host permission denials remain authoritative.
+
+**Findings pass through a communication gateway.** Workers use native DSH sessions, optional history forks and isolated Git worktrees. MU's publication, delivery and relation mechanisms determine which findings reach the shared board and which agents receive them, while retaining conflicting evidence. Changes return as patches for review.
+
+**Progress for people has its own channel.** Jev selects events worth reporting. An optional writing model turns them into concise updates, which stay outside the working model's context.
+
+## One task, end to end
+
+```text
+User input → Task frame / interruptions / memory recall
+                                  ↓
+                    DSH assembles history, skills and tools
+                                  ↓
+                    Output selection / recoverable archives
+                                  ↓
+                           Jev orchestration
+                         /        |         \
+                      Action  Main model   Clarify / finish
+                         \        |
+                      Host permissions → Tool execution
+                                             └─────────↺
+
+Workers ↔ Shared findings board ↔ Jev communication gateway
+Progress → Human (outside the working model's context)
+```
 
 ## Start
+
+Verified target: **DSH 0.2.0-rc.1 / Node.js 24.14+**.
 
 ```bash
 git clone https://github.com/yinhong-zhou/jevdo-harness.git
@@ -56,14 +117,30 @@ dsh --profile jevdo-harness "Inspect this project and save useful operations as 
 
 Supply Jev credentials in the DSH process environment. The plugin uses the host's model adapters, tools and permissions. See [configuration](docs/CONFIGURATION.md) for optional backends and migration of configured startup agents.
 
-## Evidence and limits
+## Evaluation
 
-Behavioral tests exercise real DSH sessions, commands, file edits, worktrees and a local browser, with deterministic judgment fixtures. They demonstrate integration behavior, not live model accuracy.
+A live comparison runs native DSH, JevDo and JevDo Harness on the same self-authored project. Both plugins start with empty Action libraries and repeat two workflows in fresh sessions: service startup with readiness checks, and tests followed by a verified build. Each group also runs a mixed development task.
 
-The [live comparison](reports/unified-v1/ANALYSIS.md) runs native DSH, JevDo and the combined harness on the same self-authored developer tasks, with empty initial Action libraries, fresh sessions and externally checked effects. It reports cold/warm requests, latency, token usage and fixed-rate cost estimates. One rollout per cell is not a general benchmark. Inherited `developer-workflows-*` reports belong to earlier JevDo experiments.
+| Observation | Result |
+|---|---|
+| External effect checks across all three groups | **17 / 17 passed** |
+| JevDo Harness repeat tasks in rounds two and three | **4 / 4 with zero generative-model calls** |
+| JevDo Harness mixed task | **4 fast Action selections**; code, services and build artifacts passed external checks |
 
-The first release is verified headlessly, without MU's desktop UI. Tool packs need grouping configuration. Compaction targets tool receipts, not arbitrary long conversations. Isolated workers start at clean Git HEAD; parent uncommitted edits are absent. Rewind proposes checkpoints and never automatically reverts. Diagnostics require a configured checker. Cache warming is opt-in and billed. More judgment points mean more inference, not guaranteed savings.
+This is one rollout of self-authored scenarios. The integrated harness retains Action reuse, while additional judgments add Jev requests. Initial learning and the mixed task cost more than native DSH; these results do not establish an overall speed or cost advantage. See the [full report and usage](reports/unified-v1/ANALYSIS.md).
+
+Separate behavioral tests use controlled judgments with real DSH sessions, commands, file edits, worktrees and browser interaction. They verify integration behavior rather than live judgment accuracy. Inherited `developer-workflows-*` reports belong to earlier JevDo experiments.
+
+## Scope and sources
+
+- The first release is verified headlessly, without MU's desktop UI or the Pi runtime.
+- Tool packs need grouping configuration; skills use the native DSH registry. Archival targets tool results rather than arbitrary long conversations.
+- Isolated workers start at clean Git HEAD, without parent uncommitted edits. Patches are returned for review and never merged automatically.
+- Rewind proposes checkpoints rather than reverting files. Diagnostics require a configured checker. Output monitoring permits one correction per turn and does not replace permissions.
+- Browser automation, file observation and cache warming are opt-in. Each judgment has a cost; a fuller harness is not automatically faster or cheaper.
+
+**Credits:** [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) supplies the runtime and plugin foundation. [MU](https://github.com/qybaihe/mu) supplies the reused judgment kernel, 35 decision definitions and supporting data structures. [JevDo](https://github.com/yinhong-zhou/jevdo) supplies Action scheduling and persistent operations. This repository integrates them on DSH with main-model routing and native service adapters.
 
 [Migration matrix and source pins](docs/MIGRATION.md) · [Action format](docs/ACTION_SPEC.md) · [Third-party notices](THIRD_PARTY_NOTICES.md)
 
-MIT. Credit to MU for its judgment mechanisms and DeepSeek Harness for its runtime and plugin architecture.
+MIT. Upstream copyright notices and source provenance are preserved.
