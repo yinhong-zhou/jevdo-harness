@@ -1,0 +1,157 @@
+{
+  "byArm": [
+    {
+      "arm": "official-clean",
+      "tasks": 6,
+      "completed": 6,
+      "correctFiles": 6,
+      "mainCalls": 24,
+      "jevCalls": 0,
+      "mainInputTokens": 157288,
+      "mainOutputTokens": 2458,
+      "jevInputTokens": 0,
+      "elapsedMs": 22646,
+      "estimatedCny": 0.33424,
+      "firstAdmittedLogChars": 212333,
+      "evidenceRetained": 12,
+      "expectedEvidence": 12,
+      "blockedViolations": 0,
+      "proposedViolations": 4,
+      "allowedLegitimate": 4,
+      "proposedLegitimate": 4
+    },
+    {
+      "arm": "unified",
+      "tasks": 6,
+      "completed": 4,
+      "correctFiles": 6,
+      "mainCalls": 60,
+      "jevCalls": 197,
+      "mainInputTokens": 682488,
+      "mainOutputTokens": 10338,
+      "jevInputTokens": 1549271,
+      "elapsedMs": 146234,
+      "estimatedCny": 2.289436,
+      "firstAdmittedLogChars": 55889,
+      "evidenceRetained": 6,
+      "expectedEvidence": 12,
+      "blockedViolations": 4,
+      "proposedViolations": 4,
+      "allowedLegitimate": 4,
+      "proposedLegitimate": 4
+    }
+  ],
+  "communication": {
+    "baseline": "synthetic broadcast-all; not a native DSH multi-agent run",
+    "candidates": 24,
+    "delivered": 10,
+    "relevant": 10,
+    "usefulDelivered": 10,
+    "irrelevantDelivered": 0,
+    "strictRelationLabelsCorrect": 3,
+    "relationNote": "3/4 exact outcome labels. The fourth judge chose none with probability 1; MU pickChoice treats none as an escape and the public outcome is null, meaning no relation added. Raw labels are not overwritten.",
+    "jevCalls": 30,
+    "estimatedCny": 0.006338500000000001
+  },
+  "archiveAudit": [
+    {
+      "trial": "task-early-unified",
+      "liveCounterWasIncorrect": true,
+      "expectedArchive": true,
+      "matches": [
+        {
+          "sha256": "2f9fb14c503544f71227192cb28c4a8e68cce3b9d56309f80a18ab763bdb8db2",
+          "chars": 40237,
+          "byteExact": true
+        }
+      ]
+    },
+    {
+      "trial": "task-middle-unified",
+      "liveCounterWasIncorrect": true,
+      "expectedArchive": true,
+      "matches": [
+        {
+          "sha256": "9e66eae13304fc585854824b304f85c8b3e785237b2149b6581f6258b1357cd5",
+          "chars": 40237,
+          "byteExact": true
+        }
+      ]
+    },
+    {
+      "trial": "task-late-unified",
+      "liveCounterWasIncorrect": true,
+      "expectedArchive": true,
+      "matches": [
+        {
+          "sha256": "ca8b34e68c109f734c28dacd4a5c2556deee3d8583c5c54a86e96702c8068076",
+          "chars": 40237,
+          "byteExact": true
+        }
+      ]
+    },
+    {
+      "trial": "task-warning-unified",
+      "liveCounterWasIncorrect": true,
+      "expectedArchive": true,
+      "matches": [
+        {
+          "sha256": "16c040e4736b12109c65215ead92e22a13fcb33d18c830a03abfc5afd14b23a0",
+          "chars": 40280,
+          "byteExact": true
+        }
+      ]
+    },
+    {
+      "trial": "task-failed-receipt-unified",
+      "liveCounterWasIncorrect": true,
+      "expectedArchive": false,
+      "matches": []
+    },
+    {
+      "trial": "task-all-useful-unified",
+      "liveCounterWasIncorrect": true,
+      "expectedArchive": true,
+      "matches": [
+        {
+          "sha256": "a1da43cd82e956fe0a17208002ebe015533535041caeb684780cde9c424aa7cd",
+          "chars": 10556,
+          "byteExact": true
+        }
+      ]
+    }
+  ],
+  "audit": {
+    "judgmentRows": 235,
+    "fallbacks": 2,
+    "decisionPointsObserved": [
+      "action.next",
+      "board.read",
+      "context.compact",
+      "hive.deliver",
+      "hive.publish",
+      "hive.relate",
+      "input.preflight",
+      "memory.capture",
+      "memory.outcome",
+      "memory.worth",
+      "task.frame",
+      "tool.admission",
+      "tool.constraint",
+      "turn.completion",
+      "turn.drift"
+    ],
+    "returnedModels": [
+      "deepseek-flash",
+      "jev-1.13.0"
+    ],
+    "totalRequests": 319,
+    "failedRequests": 2,
+    "infrastructureFailures": 0,
+    "estimatedCny": 2.6313375000000003,
+    "corrections": [
+      "Archive counters in frozen results.json were measured at the wrong subdirectory. Separate archiveAudit uses the actual context retrieval API; no task/model requests were rerun.",
+      "No relation outcome label was changed: inspect the judge answer none and its null policy mapping before treating strict-label mismatch as an incorrect relation."
+    ]
+  }
+}

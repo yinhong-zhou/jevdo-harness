@@ -40,6 +40,7 @@
   "scripts": {
     "check": "tsc --noEmit",
     "eval:unified": "node --import tsx --env-file-if-exists=.env scripts/evaluate-unified.ts",
+    "eval:mechanisms": "node --import tsx --env-file-if-exists=.env scripts/evaluate-mechanisms.ts",
     "build": "node scripts/build.mjs",
     "prepack": "npm run build",
     "test": "node --import tsx --test test/*.test.ts",

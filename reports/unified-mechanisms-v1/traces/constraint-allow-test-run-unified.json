@@ -1,0 +1,35 @@
+[
+  {
+    "id": "d1337040-692e-4f56-8582-31295f90119f",
+    "timestamp": "2026-10-02T16:42:35.070Z",
+    "origin": {
+      "sessionId": "constraint-allow-test-run-unified",
+      "turn": 0,
+      "step": 0
+    },
+    "specId": "tool.constraint",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "broken": []
+    },
+    "source": "judge",
+    "judged": {
+      "broken": []
+    },
+    "answers": {
+      "constraint_0": {
+        "type": "boolean",
+        "probability": 0.09
+      }
+    },
+    "latencyMs": 279,
+    "usage": {
+      "inputTokens": 333,
+      "outputTokens": 22
+    },
+    "stateDigest": "0533c6ac44bac42be857ff7accc9312f7a140c61124be43a3a449c12e9e5fd0f"
+  }
+]

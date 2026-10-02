@@ -46,7 +46,15 @@ export class ExperimentBudget {
     const operation = this.pendingWrite.then(async () => {
       await mkdir(dirname(this.file), { recursive: true });
       await writeFile(this.file + '.tmp', snapshot);
-      await rename(this.file + '.tmp', this.file);
+      // A Windows reader/antivirus can briefly lock the destination. Retry only
+      // this local atomic replacement, never the already-paid model request.
+      for (let attempt = 0; ; attempt++) {
+        try { await rename(this.file + '.tmp', this.file); break; }
+        catch (error) {
+          if (attempt >= 5 || !['EPERM', 'EACCES', 'EBUSY'].includes((error as NodeJS.ErrnoException).code ?? '')) throw error;
+          await new Promise(resolve => setTimeout(resolve, 20 * 2 ** attempt));
+        }
+      }
     });
     this.pendingWrite = operation.catch(() => undefined);
     await operation;

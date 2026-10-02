@@ -1,0 +1,1132 @@
+[
+  {
+    "id": "5ae52233-5e41-44dc-bf75-687f87f070ac",
+    "timestamp": "2026-10-02T16:42:35.419Z",
+    "origin": {
+      "sessionId": "progress"
+    },
+    "specId": "hive.publish",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "publish": false,
+      "kind": null,
+      "score": 0.28
+    },
+    "source": "judge",
+    "judged": {
+      "publish": false,
+      "kind": null,
+      "score": 0.28
+    },
+    "answers": {
+      "share_worthy": {
+        "type": "boolean",
+        "probability": 0.28
+      },
+      "kind": {
+        "type": "choice",
+        "choice": "other",
+        "probabilities": {
+          "dead_end": 0,
+          "blocker": 0,
+          "other": 1,
+          "finding": 0,
+          "decision": 0
+        },
+        "confidence": 1
+      }
+    },
+    "latencyMs": 324,
+    "usage": {
+      "inputTokens": 469,
+      "outputTokens": 73
+    },
+    "stateDigest": "345ce61bfde8ac30d8a4eecf89c1281362a5151497eb64f1aafba3e746834ebd"
+  },
+  {
+    "id": "5487e0d9-da22-4e09-a4c8-f4c7ad1246ce",
+    "timestamp": "2026-10-02T16:42:35.744Z",
+    "origin": {
+      "sessionId": "db-deadlock"
+    },
+    "specId": "hive.publish",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "publish": true,
+      "kind": "finding",
+      "score": 0.89
+    },
+    "source": "judge",
+    "judged": {
+      "publish": true,
+      "kind": "finding",
+      "score": 0.89
+    },
+    "answers": {
+      "share_worthy": {
+        "type": "boolean",
+        "probability": 0.89
+      },
+      "kind": {
+        "type": "choice",
+        "choice": "finding",
+        "probabilities": {
+          "finding": 1,
+          "dead_end": 0,
+          "other": 0,
+          "decision": 0,
+          "blocker": 0
+        },
+        "confidence": 1
+      }
+    },
+    "latencyMs": 323,
+    "usage": {
+      "inputTokens": 491,
+      "outputTokens": 73
+    },
+    "stateDigest": "9d7afc56eb153cbfbb83609d7a3813f4eb36ebec791c09feeed2b0be42f78d66"
+  },
+  {
+    "id": "f9111ff0-a83a-4a89-8e44-4ee5cbd32f3e",
+    "timestamp": "2026-10-02T16:42:36.047Z",
+    "origin": {
+      "sessionId": "db-deadlock"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": true,
+      "score": 0.94
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": true,
+      "score": 0.94
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.94
+      }
+    },
+    "latencyMs": 301,
+    "usage": {
+      "inputTokens": 366,
+      "outputTokens": 21
+    },
+    "stateDigest": "cd4545a8a21061c0e484753ce94090a9354297e25584bd2fabb43ab603deac93"
+  },
+  {
+    "id": "de4e9121-716c-48fe-a0bf-af568d428fa7",
+    "timestamp": "2026-10-02T16:42:36.359Z",
+    "origin": {
+      "sessionId": "db-deadlock"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": false,
+      "score": 0.28
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": false,
+      "score": 0.28
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.28
+      }
+    },
+    "latencyMs": 310,
+    "usage": {
+      "inputTokens": 371,
+      "outputTokens": 21
+    },
+    "stateDigest": "20107c539cac4a31dad9b5c2d4ce09ef82e8bf8b277de3bd008e78b28ade3ed8"
+  },
+  {
+    "id": "0e64f641-b7e2-482a-9032-191de4790300",
+    "timestamp": "2026-10-02T16:42:36.700Z",
+    "origin": {
+      "sessionId": "db-deadlock"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": false,
+      "score": 0.5
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": false,
+      "score": 0.5
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.5
+      }
+    },
+    "latencyMs": 339,
+    "usage": {
+      "inputTokens": 364,
+      "outputTokens": 21
+    },
+    "stateDigest": "54dd011f65a3e5faacb23f679f38cc3569b900eada09f913c37ac431ad07b302"
+  },
+  {
+    "id": "83a48b62-9382-4ee4-8ade-821f57f32d01",
+    "timestamp": "2026-10-02T16:42:37.002Z",
+    "origin": {
+      "sessionId": "ui-css"
+    },
+    "specId": "hive.publish",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "publish": true,
+      "kind": "finding",
+      "score": 0.85
+    },
+    "source": "judge",
+    "judged": {
+      "publish": true,
+      "kind": "finding",
+      "score": 0.85
+    },
+    "answers": {
+      "share_worthy": {
+        "type": "boolean",
+        "probability": 0.85
+      },
+      "kind": {
+        "type": "choice",
+        "choice": "finding",
+        "probabilities": {
+          "decision": 0,
+          "finding": 1,
+          "blocker": 0,
+          "dead_end": 0,
+          "other": 0
+        },
+        "confidence": 1
+      }
+    },
+    "latencyMs": 300,
+    "usage": {
+      "inputTokens": 494,
+      "outputTokens": 73
+    },
+    "stateDigest": "8e0f3b347431acbc3a6f958b89229fe26e40a2baf812a600f3c768b34dc49d6b"
+  },
+  {
+    "id": "aebf8ba0-2c5b-450b-95b0-a846ce8bc755",
+    "timestamp": "2026-10-02T16:42:37.299Z",
+    "origin": {
+      "sessionId": "ui-css"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": false,
+      "score": 0.07
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": false,
+      "score": 0.07
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.07
+      }
+    },
+    "latencyMs": 296,
+    "usage": {
+      "inputTokens": 369,
+      "outputTokens": 21
+    },
+    "stateDigest": "a9a50d6e343007b6e62db86cf4ce068b387c49f1f47ee5b4a50df53d3604dce5"
+  },
+  {
+    "id": "b881f2e9-6e18-4f14-9cce-3adb2733fc87",
+    "timestamp": "2026-10-02T16:42:37.583Z",
+    "origin": {
+      "sessionId": "ui-css"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": true,
+      "score": 0.93
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": true,
+      "score": 0.93
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.93
+      }
+    },
+    "latencyMs": 283,
+    "usage": {
+      "inputTokens": 374,
+      "outputTokens": 21
+    },
+    "stateDigest": "d23d4304ceec5b1d8cd6f29913a6eb3abe80944f5a3db93104541ccbcd52cb43"
+  },
+  {
+    "id": "118c1cc3-ad64-43f5-87be-d4558dbb14f9",
+    "timestamp": "2026-10-02T16:42:37.886Z",
+    "origin": {
+      "sessionId": "ui-css"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": false,
+      "score": 0.38
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": false,
+      "score": 0.38
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.38
+      }
+    },
+    "latencyMs": 300,
+    "usage": {
+      "inputTokens": 367,
+      "outputTokens": 21
+    },
+    "stateDigest": "6ed739c281f694803f8a41e8377e5beb114195461eccb76ffcf4a20d2d70f3f1"
+  },
+  {
+    "id": "b725c203-e72d-4673-9a12-15a64f5c6d61",
+    "timestamp": "2026-10-02T16:42:38.183Z",
+    "origin": {
+      "sessionId": "api-contract"
+    },
+    "specId": "hive.publish",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "publish": true,
+      "kind": "finding",
+      "score": 0.91
+    },
+    "source": "judge",
+    "judged": {
+      "publish": true,
+      "kind": "finding",
+      "score": 0.91
+    },
+    "answers": {
+      "share_worthy": {
+        "type": "boolean",
+        "probability": 0.91
+      },
+      "kind": {
+        "type": "choice",
+        "choice": "finding",
+        "probabilities": {
+          "finding": 0.86,
+          "dead_end": 0,
+          "other": 0.01,
+          "decision": 0.1,
+          "blocker": 0.03
+        },
+        "confidence": 0.82
+      }
+    },
+    "latencyMs": 295,
+    "usage": {
+      "inputTokens": 490,
+      "outputTokens": 73
+    },
+    "stateDigest": "351ee0cad4a121b007e6e48df58b92452a20cf13c75124b8ab611c130340fbb4"
+  },
+  {
+    "id": "f715a5b5-64d1-4810-868c-7c96b850730c",
+    "timestamp": "2026-10-02T16:42:38.524Z",
+    "origin": {
+      "sessionId": "api-contract"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": true,
+      "score": 0.87
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": true,
+      "score": 0.87
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.87
+      }
+    },
+    "latencyMs": 339,
+    "usage": {
+      "inputTokens": 365,
+      "outputTokens": 21
+    },
+    "stateDigest": "5c92ab5edb37d40e0491c21f9adbae8fa11fdbbc1c86cdcec3ca2f59e606c608"
+  },
+  {
+    "id": "6c364f1a-c8dc-4d71-adf4-e0a673789c2c",
+    "timestamp": "2026-10-02T16:42:38.803Z",
+    "origin": {
+      "sessionId": "api-contract"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": true,
+      "score": 0.87
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": true,
+      "score": 0.87
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.87
+      }
+    },
+    "latencyMs": 278,
+    "usage": {
+      "inputTokens": 370,
+      "outputTokens": 21
+    },
+    "stateDigest": "ebee26b3e7c6271e6ee6c4be42ce50dbcd2b1ca52300e034496a11cd06ce1cae"
+  },
+  {
+    "id": "9c4de83a-bf22-4d91-8390-5ed7b1e545f0",
+    "timestamp": "2026-10-02T16:42:39.101Z",
+    "origin": {
+      "sessionId": "api-contract"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": true,
+      "score": 0.84
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": true,
+      "score": 0.84
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.84
+      }
+    },
+    "latencyMs": 296,
+    "usage": {
+      "inputTokens": 363,
+      "outputTokens": 21
+    },
+    "stateDigest": "2427c68289e616c5f110a46eeb36ef8ecf6f23aa0944c9b1f574aae4182d9a92"
+  },
+  {
+    "id": "4ca59330-565c-4f84-9be4-8f7ac587d578",
+    "timestamp": "2026-10-02T16:42:39.408Z",
+    "origin": {
+      "sessionId": "release-decision"
+    },
+    "specId": "hive.publish",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "publish": true,
+      "kind": "decision",
+      "score": 0.88
+    },
+    "source": "judge",
+    "judged": {
+      "publish": true,
+      "kind": "decision",
+      "score": 0.88
+    },
+    "answers": {
+      "share_worthy": {
+        "type": "boolean",
+        "probability": 0.88
+      },
+      "kind": {
+        "type": "choice",
+        "choice": "decision",
+        "probabilities": {
+          "decision": 1,
+          "finding": 0,
+          "other": 0,
+          "blocker": 0,
+          "dead_end": 0
+        },
+        "confidence": 1
+      }
+    },
+    "latencyMs": 306,
+    "usage": {
+      "inputTokens": 489,
+      "outputTokens": 73
+    },
+    "stateDigest": "b3f9fd7d3f45ba66a814342cd977564210caa6ea43bae6506447cdde75e7da04"
+  },
+  {
+    "id": "ba7700f8-9bc8-4fc1-a440-4fa5de153ee7",
+    "timestamp": "2026-10-02T16:42:39.724Z",
+    "origin": {
+      "sessionId": "release-decision"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": true,
+      "score": 1
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": true,
+      "score": 1
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.77
+      }
+    },
+    "latencyMs": 315,
+    "usage": {
+      "inputTokens": 364,
+      "outputTokens": 21
+    },
+    "stateDigest": "ecdbd2bb5fdfac2f6b028705bd881a43e10eb784c7ea6beece0462e6519c03df"
+  },
+  {
+    "id": "4afe4d55-7e37-4632-a49a-52305618ccd2",
+    "timestamp": "2026-10-02T16:42:40.003Z",
+    "origin": {
+      "sessionId": "release-decision"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": true,
+      "score": 1
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": true,
+      "score": 1
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.8
+      }
+    },
+    "latencyMs": 277,
+    "usage": {
+      "inputTokens": 369,
+      "outputTokens": 21
+    },
+    "stateDigest": "9ab1e9dc59bbd9b1122b249600030dad2f52a57b6ec13f090515d5ab289598cd"
+  },
+  {
+    "id": "d1b28280-d044-49b2-b445-8009d2c4c7c6",
+    "timestamp": "2026-10-02T16:42:40.302Z",
+    "origin": {
+      "sessionId": "release-decision"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": true,
+      "score": 1
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": true,
+      "score": 1
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.88
+      }
+    },
+    "latencyMs": 298,
+    "usage": {
+      "inputTokens": 362,
+      "outputTokens": 21
+    },
+    "stateDigest": "6541819928241385159a72e361d02d43ea9cf13b2299b442fd0986d022c710e1"
+  },
+  {
+    "id": "9a1ef6a6-85c8-4a1d-912e-e729bde20bf9",
+    "timestamp": "2026-10-02T16:42:40.601Z",
+    "origin": {
+      "sessionId": "docs-link"
+    },
+    "specId": "hive.publish",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "publish": true,
+      "kind": "finding",
+      "score": 0.85
+    },
+    "source": "judge",
+    "judged": {
+      "publish": true,
+      "kind": "finding",
+      "score": 0.85
+    },
+    "answers": {
+      "share_worthy": {
+        "type": "boolean",
+        "probability": 0.85
+      },
+      "kind": {
+        "type": "choice",
+        "choice": "finding",
+        "probabilities": {
+          "dead_end": 0.01,
+          "other": 0.1,
+          "finding": 0.67,
+          "blocker": 0.02,
+          "decision": 0.2
+        },
+        "confidence": 0.59
+      }
+    },
+    "latencyMs": 297,
+    "usage": {
+      "inputTokens": 492,
+      "outputTokens": 73
+    },
+    "stateDigest": "04259e45c5f765189134dbf5df66111cf857505c76d2615a590bca04c04ada0f"
+  },
+  {
+    "id": "a4252f83-b62b-4609-b947-06b9f117b579",
+    "timestamp": "2026-10-02T16:42:40.903Z",
+    "origin": {
+      "sessionId": "docs-link"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": false,
+      "score": 0.12
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": false,
+      "score": 0.12
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.12
+      }
+    },
+    "latencyMs": 300,
+    "usage": {
+      "inputTokens": 367,
+      "outputTokens": 21
+    },
+    "stateDigest": "aafa428762224023c283714e107ddf2089d999d7b394a25b619f8bd98fc6ba8b"
+  },
+  {
+    "id": "014d74d7-56ad-49e8-9ac9-ec01becd2e02",
+    "timestamp": "2026-10-02T16:42:41.203Z",
+    "origin": {
+      "sessionId": "docs-link"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": false,
+      "score": 0.18
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": false,
+      "score": 0.18
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.18
+      }
+    },
+    "latencyMs": 297,
+    "usage": {
+      "inputTokens": 372,
+      "outputTokens": 21
+    },
+    "stateDigest": "f70cd369a267a73febea894413c30cdcfba0a207ab9d445acb22dfe255dcc670"
+  },
+  {
+    "id": "96c01765-c020-4a98-bbdf-d2b6dd80cb68",
+    "timestamp": "2026-10-02T16:42:41.487Z",
+    "origin": {
+      "sessionId": "docs-link"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": true,
+      "score": 0.95
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": true,
+      "score": 0.95
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.95
+      }
+    },
+    "latencyMs": 282,
+    "usage": {
+      "inputTokens": 365,
+      "outputTokens": 21
+    },
+    "stateDigest": "7de065543f5c123dc6325120c79582a1d81703c45b49d7dc66a3cd052c66a511"
+  },
+  {
+    "id": "ae9ecd84-3d91-496c-8924-e0e7890f8d99",
+    "timestamp": "2026-10-02T16:42:41.824Z",
+    "origin": {
+      "sessionId": "dead-end"
+    },
+    "specId": "hive.publish",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "publish": true,
+      "kind": "finding",
+      "score": 0.87
+    },
+    "source": "judge",
+    "judged": {
+      "publish": true,
+      "kind": "finding",
+      "score": 0.87
+    },
+    "answers": {
+      "share_worthy": {
+        "type": "boolean",
+        "probability": 0.87
+      },
+      "kind": {
+        "type": "choice",
+        "choice": "finding",
+        "probabilities": {
+          "decision": 0,
+          "finding": 0.52,
+          "dead_end": 0.46,
+          "other": 0,
+          "blocker": 0.02
+        },
+        "confidence": 0.4
+      }
+    },
+    "latencyMs": 336,
+    "usage": {
+      "inputTokens": 495,
+      "outputTokens": 73
+    },
+    "stateDigest": "c175973cf743ccedd22528a0a752100ab701f0199ae96e6ce95eaa79e9c9def1"
+  },
+  {
+    "id": "729e0074-5d90-49ae-b4a0-a7aaf9aeec42",
+    "timestamp": "2026-10-02T16:42:42.158Z",
+    "origin": {
+      "sessionId": "dead-end"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": true,
+      "score": 0.9
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": true,
+      "score": 0.9
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.9
+      }
+    },
+    "latencyMs": 333,
+    "usage": {
+      "inputTokens": 370,
+      "outputTokens": 21
+    },
+    "stateDigest": "0ecc3466eeef3316b86ce60312cbc637d0a6082aa9993ddc92635260cf0c0fb5"
+  },
+  {
+    "id": "f1213ca2-b604-4683-9aff-b53fd4a40081",
+    "timestamp": "2026-10-02T16:42:42.453Z",
+    "origin": {
+      "sessionId": "dead-end"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": false,
+      "score": 0.36
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": false,
+      "score": 0.36
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.36
+      }
+    },
+    "latencyMs": 293,
+    "usage": {
+      "inputTokens": 375,
+      "outputTokens": 21
+    },
+    "stateDigest": "eb8b8560e7d697b249624d6b9dffd32764e30fc8c5015d9b68196bc501f9d2b2"
+  },
+  {
+    "id": "f90a7b54-3588-42cd-aa64-7a0f9d717950",
+    "timestamp": "2026-10-02T16:42:42.721Z",
+    "origin": {
+      "sessionId": "dead-end"
+    },
+    "specId": "hive.deliver",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "deliver": false,
+      "score": 0.14
+    },
+    "source": "judge",
+    "judged": {
+      "deliver": false,
+      "score": 0.14
+    },
+    "answers": {
+      "useful": {
+        "type": "boolean",
+        "probability": 0.14
+      }
+    },
+    "latencyMs": 267,
+    "usage": {
+      "inputTokens": 368,
+      "outputTokens": 21
+    },
+    "stateDigest": "9577b1f531b3a4f347a6f2eee67485a6ed446ac3d07d150e887b352748d75126"
+  },
+  {
+    "id": "f45d3238-6b46-4df2-98a2-03bfad14f8de",
+    "timestamp": "2026-10-02T16:42:43.019Z",
+    "origin": {
+      "sessionId": "routine"
+    },
+    "specId": "hive.publish",
+    "specVersion": 1,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "publish": false,
+      "kind": null,
+      "score": 0.46
+    },
+    "source": "judge",
+    "judged": {
+      "publish": false,
+      "kind": null,
+      "score": 0.46
+    },
+    "answers": {
+      "share_worthy": {
+        "type": "boolean",
+        "probability": 0.46
+      },
+      "kind": {
+        "type": "choice",
+        "choice": "other",
+        "probabilities": {
+          "dead_end": 0,
+          "blocker": 0,
+          "other": 1,
+          "finding": 0,
+          "decision": 0
+        },
+        "confidence": 1
+      }
+    },
+    "latencyMs": 297,
+    "usage": {
+      "inputTokens": 477,
+      "outputTokens": 73
+    },
+    "stateDigest": "af9ebde4409fb5c0decd455da956981c8c3c34c2f494ed38675e87c45950a8eb"
+  },
+  {
+    "id": "3d96291c-2fc4-4371-b729-bdab2fe9a542",
+    "timestamp": "2026-10-02T16:42:43.312Z",
+    "origin": {
+      "sessionId": "conflict"
+    },
+    "specId": "hive.relate",
+    "specVersion": 2,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "relation": "contradicts",
+      "score": 0.74
+    },
+    "source": "judge",
+    "judged": {
+      "relation": "contradicts",
+      "score": 0.74
+    },
+    "answers": {
+      "relation": {
+        "type": "choice",
+        "choice": "contradicts",
+        "probabilities": {
+          "supports": 0,
+          "supersedes": 0.26,
+          "none": 0,
+          "contradicts": 0.74
+        },
+        "confidence": 0.65
+      }
+    },
+    "latencyMs": 291,
+    "usage": {
+      "inputTokens": 544,
+      "outputTokens": 51
+    },
+    "stateDigest": "0ca097f01fa4ddabf2f54e40202ebc77fc5ea864f6877c9f305df1c105e3009b"
+  },
+  {
+    "id": "eac757bd-2c74-44f6-9e20-ee95faaf5307",
+    "timestamp": "2026-10-02T16:42:43.595Z",
+    "origin": {
+      "sessionId": "self-correction"
+    },
+    "specId": "hive.relate",
+    "specVersion": 2,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "relation": "supersedes",
+      "score": 0.99
+    },
+    "source": "judge",
+    "judged": {
+      "relation": "supersedes",
+      "score": 0.99
+    },
+    "answers": {
+      "relation": {
+        "type": "choice",
+        "choice": "supersedes",
+        "probabilities": {
+          "supports": 0.01,
+          "contradicts": 0,
+          "none": 0,
+          "supersedes": 0.99
+        },
+        "confidence": 0.99
+      }
+    },
+    "latencyMs": 281,
+    "usage": {
+      "inputTokens": 538,
+      "outputTokens": 51
+    },
+    "stateDigest": "154cf69938d546b6d4e05392995ae6c7c2b7152ba8fb74151c545589bc6d39c2"
+  },
+  {
+    "id": "8cc1f054-f3c3-4b95-8daa-4049c43f053b",
+    "timestamp": "2026-10-02T16:42:43.908Z",
+    "origin": {
+      "sessionId": "support"
+    },
+    "specId": "hive.relate",
+    "specVersion": 2,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "relation": "supports",
+      "score": 1
+    },
+    "source": "judge",
+    "judged": {
+      "relation": "supports",
+      "score": 1
+    },
+    "answers": {
+      "relation": {
+        "type": "choice",
+        "choice": "supports",
+        "probabilities": {
+          "supports": 1,
+          "supersedes": 0,
+          "contradicts": 0,
+          "none": 0
+        },
+        "confidence": 1
+      }
+    },
+    "latencyMs": 312,
+    "usage": {
+      "inputTokens": 546,
+      "outputTokens": 49
+    },
+    "stateDigest": "4113c63842bb78f65472f9ff8efb41548fa990cca89d5b25d6bdf8b4646646dc"
+  },
+  {
+    "id": "3f9392be-2364-4434-b70c-cfb1193f1875",
+    "timestamp": "2026-10-02T16:42:44.177Z",
+    "origin": {
+      "sessionId": "unrelated"
+    },
+    "specId": "hive.relate",
+    "specVersion": 2,
+    "mode": "active",
+    "providerId": "typesafe:jev-latest",
+    "modelId": "jev-1.13.0",
+    "outcome": {
+      "relation": null,
+      "score": 1
+    },
+    "source": "judge",
+    "judged": {
+      "relation": null,
+      "score": 1
+    },
+    "answers": {
+      "relation": {
+        "type": "choice",
+        "choice": "none",
+        "probabilities": {
+          "supersedes": 0,
+          "supports": 0,
+          "none": 1,
+          "contradicts": 0
+        },
+        "confidence": 1
+      }
+    },
+    "latencyMs": 267,
+    "usage": {
+      "inputTokens": 531,
+      "outputTokens": 49
+    },
+    "stateDigest": "db833abef08dc7ba4e336a142a3399f6e8976d498e40c55f6fc419f3aeeeb697"
+  }
+]

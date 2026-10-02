@@ -147,6 +147,8 @@ A live comparison runs native DSH, JevDo and JevDo Harness on the same self-auth
 
 This is one rollout of self-authored scenarios. The integrated harness retains Action reuse, while additional judgments add Jev requests. Initial learning and the mixed task cost more than native DSH; these results do not establish an overall speed or cost advantage. See the [full report and usage](reports/unified-v1/ANALYSIS.md).
 
+A separate [native DSH comparison and mechanism study](reports/unified-mechanisms-v1/ANALYSIS.md) blocked 4/4 fixed violating calls and allowed 4/4 legitimate calls. Message-policy replay reduced deliveries from 24 to 10 while retaining all 10 annotated useful deliveries. Long-log tasks exposed over-filtering and redundant completion checks: both arms produced 6/6 correct files, but native DSH completed 6/6 normally versus 4/6 for the integrated first batch, with higher integrated overhead. The report retains failures, instrumentation interference and an independent rerun; routing replay is not a multi-agent task-success benchmark.
+
 ## Quick start
 
 Requires **Node.js 24.14+**. Verified DSH version: **0.2.0-rc.1**.

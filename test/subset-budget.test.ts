@@ -3,7 +3,26 @@ import assert from 'node:assert/strict';
 import { mkdtemp, readFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { spawn } from 'node:child_process';
+import { once } from 'node:events';
 import { ExperimentBudget, tokenUpperBound, upperCost } from '../scripts/subset-budget.ts';
+
+test('Windows ledger replacement survives a temporary reader lock without repeating a request', { skip: process.platform !== 'win32' }, async () => {
+  const file = join(await mkdtemp(join(tmpdir(), 'jev-budget-')), 'ledger.json');
+  const budget = new ExperimentBudget(file);
+  await budget.save();
+  const reader = spawn('pwsh.exe', ['-NoLogo', '-NoProfile', '-Command',
+    '$f = [IO.File]::Open($env:JEV_LEDGER_TEST_PATH, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read); try { [Console]::WriteLine("locked"); Start-Sleep -Milliseconds 180 } finally { $f.Dispose() }'],
+    { env: { ...process.env, JEV_LEDGER_TEST_PATH: file }, windowsHide: true });
+  const exited = once(reader, 'exit');
+  await once(reader.stdout, 'data');
+  // Exactly one reservation is written while the existing ledger is locked.
+  await budget.reserve('jev', 1000, 0);
+  await exited;
+  const saved = JSON.parse(await readFile(file, 'utf8'));
+  assert.equal(saved.entries.length, 1);
+  assert.equal(saved.entries[0].status, 'reserved');
+});
 
 test('experiment budget refuses an oversized next request before spending', async () => {
   const budget = new ExperimentBudget(join(await mkdtemp(join(tmpdir(), 'jev-budget-')), 'ledger.json'));

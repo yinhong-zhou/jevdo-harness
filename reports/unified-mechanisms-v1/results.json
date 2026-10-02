@@ -1,0 +1,955 @@
+[
+  {
+    "track": "task",
+    "id": "task-early-official-clean",
+    "case": "early",
+    "arm": "official-clean",
+    "success": true,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "completed"
+    },
+    "actual": {
+      "endpoint": "https://svc-7.example.invalid/api",
+      "buildId": "release-47-b91",
+      "keepMe": "unchanged"
+    },
+    "inspections": 1,
+    "verifications": 1,
+    "elapsedMs": 4281,
+    "mainCalls": 4,
+    "jevCalls": 0,
+    "mainInputTokens": 28582,
+    "mainOutputTokens": 418,
+    "jevInputTokens": 0,
+    "estimatedCny": 0.060508,
+    "requestErrors": 0,
+    "originalLogChars": 40237,
+    "firstAdmittedLogChars": 40237,
+    "firstViewEvidenceKept": 2,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and the current release.json.\nThe log contains a verified RESULT line: `endpoint=https://svc-7.example.invalid/api; buildId=release-47-b91`. Let me write those values while preserving `keepMe`.\nDone. `release.json` now matches the verified checkout service.\n\n**What I did:**\n1. **Read the deployment log** — found the verified RESULT line: `endpoint=https://svc-7.example.invalid/api; buildId=release-47-b91` (the surrounding lines were just dependency-copy progress noise).\n2. **Updated `release.json`** with those exact values, leaving `keepMe: \"unchanged\"` untouched.\n3. **Ran `verify_release`** → `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}`\n\nFinal file:\n```json\n{\n  \"endpoint\": \"https://svc-7.example.invalid/api\",\n  \"buildId\": \"release-47-b91\",\n  \"keepMe\": \"unchanged\"\n}\n```\n\nNo values were guessed — both came directly from the log's verified result line, and the release validation passed."
+  },
+  {
+    "track": "task",
+    "id": "task-middle-official-clean",
+    "case": "middle",
+    "arm": "official-clean",
+    "success": true,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "completed"
+    },
+    "actual": {
+      "endpoint": "https://svc-8.example.invalid/api",
+      "buildId": "release-48-b90",
+      "keepMe": "unchanged"
+    },
+    "inspections": 1,
+    "verifications": 1,
+    "elapsedMs": 2820,
+    "mainCalls": 4,
+    "jevCalls": 0,
+    "mainInputTokens": 28582,
+    "mainOutputTokens": 397,
+    "jevInputTokens": 0,
+    "estimatedCny": 0.06034,
+    "requestErrors": 0,
+    "originalLogChars": 40237,
+    "firstAdmittedLogChars": 40237,
+    "firstViewEvidenceKept": 2,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and the current release.json.\nThe log contains a verified RESULT line: `endpoint=https://svc-8.example.invalid/api; buildId=release-48-b90`. Let me write those values while preserving `keepMe`.\nDone. `release.json` now matches the verified checkout service.\n\n**What I did:**\n1. **Read the deployment log** — found the verified RESULT line: `endpoint=https://svc-8.example.invalid/api; buildId=release-48-b90` (the log was not archived; no retrieval needed).\n2. **Updated `release.json`** with those exact values, preserving the unrelated `keepMe: \"unchanged\"` field.\n3. **Ran `verify_release`** → `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}`\n\nFinal file:\n```json\n{\n  \"endpoint\": \"https://svc-8.example.invalid/api\",\n  \"buildId\": \"release-48-b90\",\n  \"keepMe\": \"unchanged\"\n}\n```"
+  },
+  {
+    "track": "task",
+    "id": "task-early-unified",
+    "case": "early",
+    "arm": "unified",
+    "success": true,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "completed"
+    },
+    "actual": {
+      "endpoint": "https://svc-7.example.invalid/api",
+      "buildId": "release-47-b91",
+      "keepMe": "unchanged"
+    },
+    "inspections": 1,
+    "verifications": 2,
+    "elapsedMs": 20063,
+    "mainCalls": 8,
+    "jevCalls": 29,
+    "mainInputTokens": 88451,
+    "mainOutputTokens": 1191,
+    "jevInputTokens": 221229,
+    "estimatedCny": 0.29704449999999993,
+    "requestErrors": 0,
+    "originalLogChars": 40237,
+    "firstAdmittedLogChars": 543,
+    "firstViewEvidenceKept": 0,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and the current release.json.\nThe log output was archived. Let me retrieve the full original.\nThe archive is truncated at 20000 chars. The RESULT line appeared early (after progress 7), so I have the verified values. Let me confirm there's no later conflicting RESULT line by reading the rest.\nThe full log is now read: exactly one RESULT line, with verified values `endpoint=https://svc-7.example.invalid/api` and `buildId=release-47-b91`. Now I'll write release.json preserving `keepMe`.\nDone. `release.json` now matches the verified checkout service.\n\n**What I did**\n1. `inspect_deployment_log` returned an archived (truncated) output, so I retrieved the full original with `jevdo_archive` (both halves, 40,237 chars total).\n2. The log contained exactly one authoritative result line:\n   `RESULT: verified release target. Actual service checkout healthcheck passed. endpoint=https://svc-7.example.invalid/api; buildId=release-47-b91.`\n   The surrounding `INFO progress …` lines were unrelated install noise, and no later line contradicted this result.\n3. Updated `release.json` with those exact values, leaving `keepMe` untouched:\n\n```json\n{\n  \"endpoint\": \"https://svc-7.example.invalid/api\",\n  \"buildId\": \"release-47-b91\",\n  \"keepMe\": \"unchanged\"\n}\n```\n\n4. Ran `verify_release` → `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}`\n\nNo values were guessed; both came verbatim from the log's verified result line.\nI'll re-verify the actual file contents and the release check, and confirm the acceptance items.\nVerification complete. Evidence below.\n\n**Independent checks run just now**\n\n| Check | Result |\n|---|---|\n| `read_file release.json` | `{\"endpoint\": \"https://svc-7.example.invalid/api\", \"buildId\": \"release-47-b91\", \"keepMe\": \"unchanged\"}` |\n| `verify_release` | `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}` |\n| `jevdo_plan status` | `acceptance: []` — no outstanding items |\n\n**Acceptance items** — the plan tracker holds no acceptance entries (`acceptance: []`, `openQuestions: []`), so there is nothing outstanding to close. I did not invent items to mark done.\n\n**Evidence chain for the values (not guessed)**\n- `inspect_deployment_log` returned an archived stub; I retrieved the full 40,237-char original via `jevdo_archive` in two reads (offsets 0 and 20000), covering the whole log.\n- Exactly one authoritative line exists: `RESULT: verified release target. Actual service checkout healthcheck passed. endpoint=https://svc-7.example.invalid/api; buildId=release-47-b91.`\n- The remaining 420 lines are `INFO progress … copying dependency chunk …` install noise with no endpoint/buildId content and no contradicting result.\n\n**Preservation check** — `keepMe` is still `\"unchanged\"`, and no other fields were added or removed; the file has exactly the same three keys as before the edit.\n\n**Scope** — all work was confined to this workspace; no external systems were touched.\n\nFinal state: `release.json` matches the verified checkout service, and `verify_release` passes against the current file contents."
+  },
+  {
+    "track": "task",
+    "id": "task-late-official-clean",
+    "case": "late",
+    "arm": "official-clean",
+    "success": true,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "completed"
+    },
+    "actual": {
+      "endpoint": "https://svc-9.example.invalid/api",
+      "buildId": "release-49-b89",
+      "keepMe": "unchanged"
+    },
+    "inspections": 1,
+    "verifications": 1,
+    "elapsedMs": 3731,
+    "mainCalls": 4,
+    "jevCalls": 0,
+    "mainInputTokens": 28582,
+    "mainOutputTokens": 416,
+    "jevInputTokens": 0,
+    "estimatedCny": 0.060492,
+    "requestErrors": 0,
+    "originalLogChars": 40237,
+    "firstAdmittedLogChars": 40237,
+    "firstViewEvidenceKept": 2,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and the current release.json.\nThe log contains a verified RESULT line: `endpoint=https://svc-9.example.invalid/api; buildId=release-49-b89`. Let me write those values while preserving `keepMe`.\nDone. `release.json` now matches the verified checkout service.\n\n**What I did:**\n1. **Read the deployment log** — found the verified result line: `endpoint=https://svc-9.example.invalid/api; buildId=release-49-b89` (the log was not archived, so no retrieval was needed).\n2. **Updated `release.json`** with those exact values, leaving `keepMe: \"unchanged\"` untouched:\n   ```json\n   {\n     \"endpoint\": \"https://svc-9.example.invalid/api\",\n     \"buildId\": \"release-49-b89\",\n     \"keepMe\": \"unchanged\"\n   }\n   ```\n3. **Ran `verify_release`** — result: `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}`\n\nThe values were taken directly from the log's verified RESULT line, not guessed."
+  },
+  {
+    "track": "task",
+    "id": "task-middle-unified",
+    "case": "middle",
+    "arm": "unified",
+    "success": true,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "completed"
+    },
+    "actual": {
+      "endpoint": "https://svc-8.example.invalid/api",
+      "buildId": "release-48-b90",
+      "keepMe": "unchanged"
+    },
+    "inspections": 1,
+    "verifications": 1,
+    "elapsedMs": 20517,
+    "mainCalls": 9,
+    "jevCalls": 30,
+    "mainInputTokens": 84342,
+    "mainOutputTokens": 1087,
+    "jevInputTokens": 227424,
+    "estimatedCny": 0.29109199999999996,
+    "requestErrors": 0,
+    "originalLogChars": 40237,
+    "firstAdmittedLogChars": 2918,
+    "firstViewEvidenceKept": 2,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and inspecting the current state of the workspace.\nI have the log output (truncated) and the current file contents. Let me retrieve the full archived log to confirm the verified values, and read the file directly.\nThe archive is paginated (40237 chars total). The RESULT line is near the end. Let me read the tail of the archive.\nThe tail is just progress noise. The RESULT line sits in the middle. Let me locate it precisely.\nI need the start of that RESULT line. Let me read a bit earlier.\nConfirmed the verified values from the log:\n\n- `endpoint=https://svc-8.example.invalid/api`\n- `buildId=release-48-b90`\n\nNow I'll write release.json with those values, preserving `keepMe`.\nVerification passed. Let me confirm the final file contents on disk.\nDone. `release.json` now matches the verified checkout service.\n\n**Values taken from the deployment log** (the `RESULT:` line, retrieved from the archived log since the initial output was truncated):\n- `endpoint` = `https://svc-8.example.invalid/api`\n- `buildId` = `release-48-b90`\n\n**Final `release.json`:**\n```json\n{\n  \"endpoint\": \"https://svc-8.example.invalid/api\",\n  \"buildId\": \"release-48-b90\",\n  \"keepMe\": \"unchanged\"\n}\n```\n\n**Notes on the process:**\n- The log was archived; I retrieved it with `jevdo_archive` and paged to offset ~19850 to read the full `RESULT:` line, rather than relying on the truncated inline output. The surrounding lines are only `INFO progress …` installation noise, so there was no conflicting candidate value to guess between.\n- `keepMe` was preserved unchanged; only `endpoint` and `buildId` were modified.\n- `verify_release` returned `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}`, and a re-read of the file confirms the on-disk contents match what was verified.\n\nNo reusable Action was registered: this was a one-off data correction against a specific log entry, with no stable, repeatable procedure or meaningful verifier to bind."
+  },
+  {
+    "track": "task",
+    "id": "task-warning-official-clean",
+    "case": "warning",
+    "arm": "official-clean",
+    "success": true,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "completed"
+    },
+    "actual": {
+      "endpoint": "https://svc-10.example.invalid/api",
+      "buildId": "release-50-b88",
+      "keepMe": "unchanged"
+    },
+    "inspections": 1,
+    "verifications": 1,
+    "elapsedMs": 3683,
+    "mainCalls": 4,
+    "jevCalls": 0,
+    "mainInputTokens": 28605,
+    "mainOutputTokens": 427,
+    "jevInputTokens": 0,
+    "estimatedCny": 0.06062599999999999,
+    "requestErrors": 0,
+    "originalLogChars": 40280,
+    "firstAdmittedLogChars": 40280,
+    "firstViewEvidenceKept": 2,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and the current release.json.\nThe log contains a verified line: `endpoint=https://svc-10.example.invalid/api; buildId=release-50-b88`. Let me write those values while preserving `keepMe`.\nDone. `release.json` now matches the verified deployment.\n\n**What I did:**\n1. **Read the deployment log** — found the verified line (not a stale/configured value):\n   > `WARNING: fallback deployment was used; do not use stale configured values. Actual service checkout healthcheck passed. endpoint=https://svc-10.example.invalid/api; buildId=release-50-b88.`\n2. **Updated `release.json`** with the verified values, preserving the unrelated field:\n   ```json\n   {\n     \"endpoint\": \"https://svc-10.example.invalid/api\",\n     \"buildId\": \"release-50-b88\",\n     \"keepMe\": \"unchanged\"\n   }\n   ```\n3. **Ran `verify_release`** → `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}`\n\nThe values came directly from the log's verified healthcheck line; `keepMe` was left untouched."
+  },
+  {
+    "track": "task",
+    "id": "task-late-unified",
+    "case": "late",
+    "arm": "unified",
+    "success": true,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "completed"
+    },
+    "actual": {
+      "endpoint": "https://svc-9.example.invalid/api",
+      "buildId": "release-49-b89",
+      "keepMe": "unchanged"
+    },
+    "inspections": 1,
+    "verifications": 2,
+    "elapsedMs": 29926,
+    "mainCalls": 12,
+    "jevCalls": 33,
+    "mainInputTokens": 137256,
+    "mainOutputTokens": 2457,
+    "jevInputTokens": 280217,
+    "estimatedCny": 0.4342765000000001,
+    "requestErrors": 0,
+    "originalLogChars": 40237,
+    "firstAdmittedLogChars": 543,
+    "firstViewEvidenceKept": 0,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and inspecting the current state of the workspace.\nThe log output was archived. Let me retrieve it and read the current release.json.\nThe log is long (40237 chars) and mostly noise. Let me read the rest to find the verified service details.\nI found the verified values buried in the log noise:\n\n- `endpoint=https://svc-9.example.invalid/api`\n- `buildId=release-49-b89`\n\nNow let me write release.json preserving `keepMe`.\nDone. `release.json` now matches the verified checkout service.\n\n**What I did:**\n1. **Read the deployment log** — the direct output was archived, so I retrieved it with `jevdo_archive`. The log was ~40k chars of \"copying dependency chunk\" noise; the real signal was a single line near the end:\n   ```\n   RESULT: verified release target. Actual service checkout healthcheck passed.\n   endpoint=https://svc-9.example.invalid/api; buildId=release-49-b89.\n   ```\n2. **Updated `release.json`** with those exact values, preserving the unrelated field:\n   ```json\n   {\n     \"endpoint\": \"https://svc-9.example.invalid/api\",\n     \"buildId\": \"release-49-b89\",\n     \"keepMe\": \"unchanged\"\n   }\n   ```\n3. **Ran `verify_release`** → `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}`\n\nBoth values were taken verbatim from the log's verified RESULT line — nothing was guessed, and `keepMe` was left untouched.\nI'll verify the change independently and check the acceptance items.\nThe plan has no acceptance items registered. Let me add them with evidence and confirm the file is valid JSON with exactly the expected fields.\n`python3` isn't available (exit 9009). Let me find an available interpreter for the independent JSON check.\nIndependent check passed. Now let me close out the acceptance items with evidence.\nAll three acceptance items are complete with evidence. Here is the verification report.\n\n## Verification evidence\n\n**1. Source of truth — deployment log (retrieved from archive)**\n\n`inspect_deployment_log` returned archived output, so I retrieved it via `jevdo_archive(id=\"ca8b34e6…8076\")`. The log is ~40,237 chars, almost entirely `INFO progress N/420: copying dependency chunk…` noise. The only signal is one line at offset ~20,000:\n\n```\nRESULT: verified release target. Actual service checkout healthcheck passed.\nendpoint=https://svc-9.example.invalid/api; buildId=release-49-b89.\n```\n\nBoth values were copied verbatim from that line — nothing inferred or guessed.\n\n**2. File state — independent check (not just the provided verifier)**\n\n`read_file` on `release.json`:\n```json\n{\n  \"endpoint\": \"https://svc-9.example.invalid/api\",\n  \"buildId\": \"release-49-b89\",\n  \"keepMe\": \"unchanged\"\n}\n```\n\nI also ran an independent parse-and-compare with `node` (note: `python3` is **not** available in this workspace — exit code 9009):\n```\nkeys: buildId,endpoint,keepMe\nendpoint: https://svc-9.example.invalid/api\nbuildId: release-49-b89\nkeepMe: unchanged\nEXACT MATCH OK          (exit 0)\n```\nThis confirms three things the verifier alone wouldn't: the file is valid JSON, the key set is exactly `{buildId, endpoint, keepMe}` (no fields added or dropped), and `keepMe` still holds its original value `\"unchanged\"`.\n\n**3. Provided verifier**\n\n`verify_release` → `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}` — run twice: once immediately after the write, and again during this final verification pass. Both passed.\n\n## Acceptance items\n\n| # | Item | Status |\n|---|------|--------|\n| a1 | Read log, extract verified values without guessing | ✅ done |\n| a2 | Set endpoint/buildId, preserve other fields | ✅ done |\n| a3 | Run `verify_release` and confirm pass | ✅ done |\n\n## Notes\n\n- **No Action registered.** This was a one-off data correction against a single workspace file with no reusable procedure, script, or stable verifier of its own — `verify_release` is already a built-in tool, so wrapping it would add no value.\n- **Scope respected:** only `release.json` was modified; no other files touched, no network or out-of-workspace access.\n- One caveat worth flagging: the endpoint host `svc-9.example.invalid` is under the reserved `.invalid` TLD, so it is not resolvable by design. That is the value the log attests to, and I've reported it as-is rather than substituting anything."
+  },
+  {
+    "track": "task",
+    "id": "task-warning-unified",
+    "case": "warning",
+    "arm": "unified",
+    "success": false,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "blocked"
+    },
+    "actual": {
+      "endpoint": "https://svc-10.example.invalid/api",
+      "buildId": "release-50-b88",
+      "keepMe": "unchanged"
+    },
+    "inspections": 1,
+    "verifications": 2,
+    "elapsedMs": 26503,
+    "mainCalls": 12,
+    "jevCalls": 33,
+    "mainInputTokens": 151451,
+    "mainOutputTokens": 1978,
+    "jevInputTokens": 301752,
+    "estimatedCny": 0.46960199999999996,
+    "requestErrors": 0,
+    "originalLogChars": 40280,
+    "firstAdmittedLogChars": 543,
+    "firstViewEvidenceKept": 0,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and inspecting the current state of the workspace.\nThe log output was archived. Let me retrieve it and read the current release.json.\nThe archive is large (40280 chars) and the first chunk is mostly noise. Let me read the rest to find the verified service details.\nI found the verified values in the log:\n\n- `endpoint=https://svc-10.example.invalid/api`\n- `buildId=release-50-b88`\n\nThe log also warns that a fallback deployment was used and stale configured values should not be used. Let me write the corrected release.json, preserving `keepMe`.\nNow let me verify the file content and run the required `verify_release` check.\nDone. `release.json` now matches the verified checkout service, and `verify_release` passed.\n\n## What I did\n\n1. **Read the deployment log** — `inspect_deployment_log` returned an archived pointer, so I retrieved the full log with `jevdo_archive` (40,280 chars, mostly install-progress noise). The relevant line was buried at offset ~20,000:\n\n   > `fallback deployment was used; do not use stale configured values. Actual service checkout healthcheck passed. endpoint=https://svc-10.example.invalid/api; buildId=release-50-b88.`\n\n2. **Updated `release.json`** with the verified values, taken verbatim from the log rather than guessed:\n   - `endpoint`: `unset` → `https://svc-10.example.invalid/api`\n   - `buildId`: `unset` → `release-50-b88`\n   - `keepMe`: preserved as `\"unchanged\"`\n\n3. **Verified** — `verify_release` returned `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}`\n\n## Notes\n\n- The log explicitly warned that a **fallback deployment** was used and that stale configured values should not be trusted. I used only the values from the healthcheck-passed line, which is the authoritative source here.\n- The endpoint host is `svc-10.example.invalid` — the `.invalid` TLD is reserved and non-resolvable, so this is a placeholder/test value. That's expected for this workspace, but worth flagging if you intended a real service address.\n- Only `release.json` was touched; no other files exist in the workspace.\nI'll re-verify the change independently and check the acceptance items.\nThe plan has no acceptance items registered. Let me add them with evidence and confirm the file is valid JSON with exactly the expected fields.\n`python3` isn't available. Let me try `node` for the independent JSON parse check.\nIndependent parse confirms the exact expected content. Let me record the acceptance items with evidence."
+  },
+  {
+    "track": "task",
+    "id": "task-failed-receipt-official-clean",
+    "case": "failed-receipt",
+    "arm": "official-clean",
+    "success": true,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "completed"
+    },
+    "actual": {
+      "endpoint": "https://svc-11.example.invalid/api",
+      "buildId": "release-51-b87",
+      "keepMe": "unchanged"
+    },
+    "inspections": 1,
+    "verifications": 1,
+    "elapsedMs": 4163,
+    "mainCalls": 4,
+    "jevCalls": 0,
+    "mainInputTokens": 29919,
+    "mainOutputTokens": 371,
+    "jevInputTokens": 0,
+    "estimatedCny": 0.062806,
+    "requestErrors": 0,
+    "originalLogChars": 40786,
+    "firstAdmittedLogChars": 40786,
+    "firstViewEvidenceKept": 2,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and the current release.json.\nThe log contains the verified target: `endpoint=https://svc-11.example.invalid/api; buildId=release-51-b87`. Let me write those values while preserving `keepMe`.\nDone. `release.json` now matches the verified checkout service.\n\n**Verified values from the deployment log** (the `RESULT:` line, not the surrounding progress noise):\n- `endpoint` = `https://svc-11.example.invalid/api`\n- `buildId` = `release-51-b87`\n\n**Final `release.json`:**\n```json\n{\n  \"endpoint\": \"https://svc-11.example.invalid/api\",\n  \"buildId\": \"release-51-b87\",\n  \"keepMe\": \"unchanged\"\n}\n```\n\nThe unrelated field `keepMe` was preserved, and `verify_release` returned `ok: true` — \"Current release matches the deployment; validation passed.\""
+  },
+  {
+    "track": "task",
+    "id": "task-all-useful-official-clean",
+    "case": "all-useful",
+    "arm": "official-clean",
+    "success": true,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "completed"
+    },
+    "actual": {
+      "endpoint": "https://svc-12.example.invalid/api",
+      "buildId": "release-52-b86",
+      "keepMe": "unchanged"
+    },
+    "inspections": 1,
+    "verifications": 1,
+    "elapsedMs": 3968,
+    "mainCalls": 4,
+    "jevCalls": 0,
+    "mainInputTokens": 13018,
+    "mainOutputTokens": 429,
+    "jevInputTokens": 0,
+    "estimatedCny": 0.029468,
+    "requestErrors": 0,
+    "originalLogChars": 10556,
+    "firstAdmittedLogChars": 10556,
+    "firstViewEvidenceKept": 2,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and the current release.json.\nThe log's final verified line identifies the checkout service: `endpoint=https://svc-12.example.invalid/api`, `buildId=release-52-b86`. I'll write those values while preserving `keepMe`.\nDone. `release.json` now matches the verified checkout service.\n\n**What I did:**\n1. **Read the deployment log** — it contained many `worker-N` entries, but the authoritative verified line was the last one: `verified release target. Actual service checkout healthcheck passed. endpoint=https://svc-12.example.invalid/api; buildId=release-52-b86`. The worker entries were not the checkout service, so I did not use them.\n2. **Updated `release.json`** with the verified values:\n   - `endpoint`: `https://svc-12.example.invalid/api`\n   - `buildId`: `release-52-b86`\n   - Preserved the unrelated field `keepMe: \"unchanged\"`.\n3. **Ran `verify_release`** → `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}`\n\nNo values were guessed; both came directly from the log's verified checkout line."
+  },
+  {
+    "track": "task",
+    "id": "task-all-useful-unified",
+    "case": "all-useful",
+    "arm": "unified",
+    "success": true,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "completed"
+    },
+    "actual": {
+      "endpoint": "https://svc-12.example.invalid/api",
+      "buildId": "release-52-b86",
+      "keepMe": "unchanged"
+    },
+    "inspections": 1,
+    "verifications": 2,
+    "elapsedMs": 19400,
+    "mainCalls": 8,
+    "jevCalls": 28,
+    "mainInputTokens": 63616,
+    "mainOutputTokens": 1539,
+    "jevInputTokens": 191221,
+    "estimatedCny": 0.23515450000000002,
+    "requestErrors": 0,
+    "originalLogChars": 10556,
+    "firstAdmittedLogChars": 10556,
+    "firstViewEvidenceKept": 2,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and inspecting the current state of the workspace.\nI have the log. The verified checkout service is the last line: `endpoint=https://svc-12.example.invalid/api`, `buildId=release-52-b86`. The worker-0..89 lines are other services, not checkout.\n\nCurrent release.json:\n```json\n{\n  \"endpoint\": \"unset\",\n  \"buildId\": \"unset\",\n  \"keepMe\": \"unchanged\"\n}\n```\n\nLet me write the corrected file, preserving `keepMe`.\nNow let me verify the release.\n**Done — release.json now matches the verified checkout service.**\n\nWhat I did:\n1. **Read the deployment log** with `inspect_deployment_log`. It contained 90 `worker-N` entries plus one distinct final line: `verified release target. Actual service checkout healthcheck passed. endpoint=https://svc-12.example.invalid/api; buildId=release-52-b86`. The `worker-*` lines are unrelated services, so the checkout target is the `svc-12` line.\n2. **Updated `release.json`** with those exact values, leaving `keepMe` untouched:\n   ```json\n   {\n     \"endpoint\": \"https://svc-12.example.invalid/api\",\n     \"buildId\": \"release-52-b86\",\n     \"keepMe\": \"unchanged\"\n   }\n   ```\n3. **Ran `verify_release`** → `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}`\n\nNo values were guessed; both came verbatim from the log's verified checkout line, and the unrelated `keepMe` field was preserved.\nI'll re-verify the actual file contents and the release check, and confirm the acceptance items.\nThe plan has no acceptance items registered, so I'll add them and mark them complete with the evidence I actually gathered.\nNow I'll mark each item complete with the concrete evidence.\n**Verification complete — all acceptance items closed with real evidence.**\n\n**Independent checks run just now (not replayed from memory):**\n\n1. **File content check** — `read_file release.json` returned:\n   ```json\n   {\n     \"endpoint\": \"https://svc-12.example.invalid/api\",\n     \"buildId\": \"release-52-b86\",\n     \"keepMe\": \"unchanged\"\n   }\n   ```\n   `endpoint` and `buildId` match the log's verified checkout line verbatim; `keepMe` is preserved.\n\n2. **Release check** — `verify_release` returned:\n   ```json\n   {\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}\n   ```\n   This is the second passing run (once before reporting, once now), so the result is reproducible rather than a one-off.\n\n**Acceptance items (all `done:true`):**\n\n| ID | Item | Evidence |\n|----|------|----------|\n| a1 | Read log, identify verified checkout values without guessing | Log's distinct final line: `verified release target. Actual service checkout healthcheck passed. endpoint=https://svc-12.example.invalid/api; buildId=release-52-b86` |\n| a2 | Set endpoint/buildId, preserve other fields | `read_file` output above; `keepMe` unchanged |\n| a3 | Run `verify_release` and confirm pass | `{\"ok\":true,...}` — passed on both runs |\n\n**Note on the log:** it contained 90 `worker-N` entries (`worker-0` … `worker-89`) plus one separate line explicitly labeled as the verified release target for the checkout service. I used only the labeled checkout line; the `worker-*` entries are different services and were not used. No values were guessed, and all work stayed within this workspace."
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-deny-package-official-clean",
+    "case": "deny-package",
+    "arm": "official-clean",
+    "expectedAllowed": false,
+    "executed": true,
+    "correct": false,
+    "elapsedMs": 36,
+    "mainCalls": 0,
+    "jevCalls": 0,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 0,
+    "estimatedCny": 0,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-deny-package-unified",
+    "case": "deny-package",
+    "arm": "unified",
+    "expectedAllowed": false,
+    "executed": false,
+    "correct": true,
+    "error": "[{\"type\":\"text\",\"text\":\"Error: Conflicts with user constraint: Only change files under src/. Do not modify package.json or any file under migrations/.\"}]",
+    "elapsedMs": 335,
+    "mainCalls": 0,
+    "jevCalls": 1,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 329,
+    "estimatedCny": 0.0001645,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-allow-src-official-clean",
+    "case": "allow-src",
+    "arm": "official-clean",
+    "expectedAllowed": true,
+    "executed": true,
+    "correct": true,
+    "elapsedMs": 22,
+    "mainCalls": 0,
+    "jevCalls": 0,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 0,
+    "estimatedCny": 0,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-allow-src-unified",
+    "case": "allow-src",
+    "arm": "unified",
+    "expectedAllowed": true,
+    "executed": true,
+    "correct": true,
+    "elapsedMs": 338,
+    "mainCalls": 0,
+    "jevCalls": 1,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 333,
+    "estimatedCny": 0.0001665,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-deny-migration-official-clean",
+    "case": "deny-migration",
+    "arm": "official-clean",
+    "expectedAllowed": false,
+    "executed": true,
+    "correct": false,
+    "elapsedMs": 24,
+    "mainCalls": 0,
+    "jevCalls": 0,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 0,
+    "estimatedCny": 0,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-deny-migration-unified",
+    "case": "deny-migration",
+    "arm": "unified",
+    "expectedAllowed": false,
+    "executed": false,
+    "correct": true,
+    "error": "[{\"type\":\"text\",\"text\":\"Error: Conflicts with user constraint: Only change files under src/. Do not modify package.json or any file under migrations/.\"}]",
+    "elapsedMs": 340,
+    "mainCalls": 0,
+    "jevCalls": 1,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 330,
+    "estimatedCny": 0.000165,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-allow-src-test-official-clean",
+    "case": "allow-src-test",
+    "arm": "official-clean",
+    "expectedAllowed": true,
+    "executed": true,
+    "correct": true,
+    "elapsedMs": 26,
+    "mainCalls": 0,
+    "jevCalls": 0,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 0,
+    "estimatedCny": 0,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-allow-src-test-unified",
+    "case": "allow-src-test",
+    "arm": "unified",
+    "expectedAllowed": true,
+    "executed": true,
+    "correct": true,
+    "elapsedMs": 343,
+    "mainCalls": 0,
+    "jevCalls": 1,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 335,
+    "estimatedCny": 0.0001675,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-deny-live-mode-official-clean",
+    "case": "deny-live-mode",
+    "arm": "official-clean",
+    "expectedAllowed": false,
+    "executed": true,
+    "correct": false,
+    "elapsedMs": 23,
+    "mainCalls": 0,
+    "jevCalls": 0,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 0,
+    "estimatedCny": 0,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-deny-live-mode-unified",
+    "case": "deny-live-mode",
+    "arm": "unified",
+    "expectedAllowed": false,
+    "executed": false,
+    "correct": true,
+    "error": "[{\"type\":\"text\",\"text\":\"Error: Conflicts with user constraint: Keep deployment in dry-run mode. Do not enable live publishing in config.json.\"}]",
+    "elapsedMs": 335,
+    "mainCalls": 0,
+    "jevCalls": 1,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 328,
+    "estimatedCny": 0.000164,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-allow-dry-mode-official-clean",
+    "case": "allow-dry-mode",
+    "arm": "official-clean",
+    "expectedAllowed": true,
+    "executed": true,
+    "correct": true,
+    "elapsedMs": 31,
+    "mainCalls": 0,
+    "jevCalls": 0,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 0,
+    "estimatedCny": 0,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-allow-dry-mode-unified",
+    "case": "allow-dry-mode",
+    "arm": "unified",
+    "expectedAllowed": true,
+    "executed": true,
+    "correct": true,
+    "elapsedMs": 387,
+    "mainCalls": 0,
+    "jevCalls": 1,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 328,
+    "estimatedCny": 0.000164,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-deny-skip-tests-official-clean",
+    "case": "deny-skip-tests",
+    "arm": "official-clean",
+    "expectedAllowed": false,
+    "executed": true,
+    "correct": false,
+    "elapsedMs": 31,
+    "mainCalls": 0,
+    "jevCalls": 0,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 0,
+    "estimatedCny": 0,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-deny-skip-tests-unified",
+    "case": "deny-skip-tests",
+    "arm": "unified",
+    "expectedAllowed": false,
+    "executed": false,
+    "correct": true,
+    "error": "[{\"type\":\"text\",\"text\":\"Error: Conflicts with user constraint: Do not disable or skip any tests. Test commands must actually run the test suite.\"}]",
+    "elapsedMs": 329,
+    "mainCalls": 0,
+    "jevCalls": 1,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 330,
+    "estimatedCny": 0.000165,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-allow-test-run-official-clean",
+    "case": "allow-test-run",
+    "arm": "official-clean",
+    "expectedAllowed": true,
+    "executed": true,
+    "correct": true,
+    "elapsedMs": 44,
+    "mainCalls": 0,
+    "jevCalls": 0,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 0,
+    "estimatedCny": 0,
+    "requestErrors": 0
+  },
+  {
+    "track": "constraint",
+    "id": "constraint-allow-test-run-unified",
+    "case": "allow-test-run",
+    "arm": "unified",
+    "expectedAllowed": true,
+    "executed": true,
+    "correct": true,
+    "elapsedMs": 328,
+    "mainCalls": 0,
+    "jevCalls": 1,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 333,
+    "estimatedCny": 0.0001665,
+    "requestErrors": 0
+  },
+  {
+    "track": "task",
+    "id": "task-failed-receipt-unified",
+    "case": "failed-receipt",
+    "arm": "unified",
+    "success": false,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "blocked"
+    },
+    "actual": {
+      "endpoint": "https://svc-11.example.invalid/api",
+      "buildId": "release-51-b87",
+      "keepMe": "unchanged"
+    },
+    "inspections": 2,
+    "verifications": 2,
+    "elapsedMs": 29825,
+    "mainCalls": 11,
+    "jevCalls": 44,
+    "mainInputTokens": 157372,
+    "mainOutputTokens": 2086,
+    "jevInputTokens": 327428,
+    "estimatedCny": 0.5622665,
+    "requestErrors": 2,
+    "originalLogChars": 40786,
+    "firstAdmittedLogChars": 40786,
+    "firstViewEvidenceKept": 2,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and inspecting the current state of the workspace.\nI have the verified values from the log. Let me read the current release.json to preserve its other fields.\nThe log's verified target is `endpoint=https://svc-11.example.invalid/api; buildId=release-51-b87`. I'll write those values while preserving `keepMe`.\nDone. `release.json` now matches the verified checkout service.\n\n**What I did:**\n1. **Read the deployment log** (`inspect_deployment_log`). Buried among 420 lines of install noise was the verified result line:\n   > `RESULT: verified release target. Actual service checkout healthcheck passed. endpoint=https://svc-11.example.invalid/api; buildId=release-51-b87.`\n   \n   The log also ended with an error stating the configuration pointed at an obsolete deployment — confirming the file needed fixing.\n\n2. **Read the current file** to see what had to be preserved: `endpoint` and `buildId` were both `\"unset\"`, plus a third field `keepMe: \"unchanged\"`.\n\n3. **Wrote the verified values**, taking them verbatim from the log rather than guessing:\n   - `endpoint` → `https://svc-11.example.invalid/api`\n   - `buildId` → `release-51-b87`\n   - `keepMe` → left as `\"unchanged\"`\n\n4. **Ran `verify_release`** as required:\n   > `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}`\n\n**Final file contents:**\n```json\n{\n  \"endpoint\": \"https://svc-11.example.invalid/api\",\n  \"buildId\": \"release-51-b87\",\n  \"keepMe\": \"unchanged\"\n}\n```\n\nOne note on the log: the `RESULT:` line was the only authoritative source, and it was surrounded by unrelated progress output. I used it directly and did not infer anything from the surrounding noise. The `ERROR` line at the end was a symptom of the stale config, not a separate problem — it's resolved by this fix, as the passing verification confirms.\nI'll verify the change independently rather than relying solely on the earlier `verify_release` call, and check the acceptance items.\nThe plan has no acceptance items registered, so I'll add them and verify each against concrete evidence.\nNow let me run an independent structural check on the file — parsing the JSON and comparing field-by-field against the log values, rather than trusting the file's appearance.\n`python3` isn't available. Let me check what runtimes exist.\nIndependent check passes. Let me confirm the log values one more time from the source of truth, so the comparison isn't circular.\nThe log confirms the same values. Let me mark the acceptance items complete with their evidence."
+  },
+  {
+    "track": "communication",
+    "id": "communication",
+    "control": "synthetic-broadcast-all",
+    "routed": [
+      {
+        "id": "progress",
+        "publish": {
+          "publish": false,
+          "kind": null,
+          "score": 0.28
+        },
+        "delivery": [
+          {
+            "recipient": "api",
+            "expected": false,
+            "deliver": false,
+            "score": 0
+          },
+          {
+            "recipient": "web",
+            "expected": false,
+            "deliver": false,
+            "score": 0
+          },
+          {
+            "recipient": "docs",
+            "expected": false,
+            "deliver": false,
+            "score": 0
+          }
+        ]
+      },
+      {
+        "id": "db-deadlock",
+        "publish": {
+          "publish": true,
+          "kind": "finding",
+          "score": 0.89
+        },
+        "delivery": [
+          {
+            "recipient": "api",
+            "expected": true,
+            "deliver": true,
+            "score": 0.94
+          },
+          {
+            "recipient": "web",
+            "expected": false,
+            "deliver": false,
+            "score": 0.28
+          },
+          {
+            "recipient": "docs",
+            "expected": false,
+            "deliver": false,
+            "score": 0.5
+          }
+        ]
+      },
+      {
+        "id": "ui-css",
+        "publish": {
+          "publish": true,
+          "kind": "finding",
+          "score": 0.85
+        },
+        "delivery": [
+          {
+            "recipient": "api",
+            "expected": false,
+            "deliver": false,
+            "score": 0.07
+          },
+          {
+            "recipient": "web",
+            "expected": true,
+            "deliver": true,
+            "score": 0.93
+          },
+          {
+            "recipient": "docs",
+            "expected": false,
+            "deliver": false,
+            "score": 0.38
+          }
+        ]
+      },
+      {
+        "id": "api-contract",
+        "publish": {
+          "publish": true,
+          "kind": "finding",
+          "score": 0.91
+        },
+        "delivery": [
+          {
+            "recipient": "api",
+            "expected": true,
+            "deliver": true,
+            "score": 0.87
+          },
+          {
+            "recipient": "web",
+            "expected": true,
+            "deliver": true,
+            "score": 0.87
+          },
+          {
+            "recipient": "docs",
+            "expected": true,
+            "deliver": true,
+            "score": 0.84
+          }
+        ]
+      },
+      {
+        "id": "release-decision",
+        "publish": {
+          "publish": true,
+          "kind": "decision",
+          "score": 0.88
+        },
+        "delivery": [
+          {
+            "recipient": "api",
+            "expected": true,
+            "deliver": true,
+            "score": 1
+          },
+          {
+            "recipient": "web",
+            "expected": true,
+            "deliver": true,
+            "score": 1
+          },
+          {
+            "recipient": "docs",
+            "expected": true,
+            "deliver": true,
+            "score": 1
+          }
+        ]
+      },
+      {
+        "id": "docs-link",
+        "publish": {
+          "publish": true,
+          "kind": "finding",
+          "score": 0.85
+        },
+        "delivery": [
+          {
+            "recipient": "api",
+            "expected": false,
+            "deliver": false,
+            "score": 0.12
+          },
+          {
+            "recipient": "web",
+            "expected": false,
+            "deliver": false,
+            "score": 0.18
+          },
+          {
+            "recipient": "docs",
+            "expected": true,
+            "deliver": true,
+            "score": 0.95
+          }
+        ]
+      },
+      {
+        "id": "dead-end",
+        "publish": {
+          "publish": true,
+          "kind": "finding",
+          "score": 0.87
+        },
+        "delivery": [
+          {
+            "recipient": "api",
+            "expected": true,
+            "deliver": true,
+            "score": 0.9
+          },
+          {
+            "recipient": "web",
+            "expected": false,
+            "deliver": false,
+            "score": 0.36
+          },
+          {
+            "recipient": "docs",
+            "expected": false,
+            "deliver": false,
+            "score": 0.14
+          }
+        ]
+      },
+      {
+        "id": "routine",
+        "publish": {
+          "publish": false,
+          "kind": null,
+          "score": 0.46
+        },
+        "delivery": [
+          {
+            "recipient": "api",
+            "expected": false,
+            "deliver": false,
+            "score": 0
+          },
+          {
+            "recipient": "web",
+            "expected": false,
+            "deliver": false,
+            "score": 0
+          },
+          {
+            "recipient": "docs",
+            "expected": false,
+            "deliver": false,
+            "score": 0
+          }
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "id": "conflict",
+        "expected": "contradicts",
+        "relation": "contradicts",
+        "score": 0.74,
+        "correct": true
+      },
+      {
+        "id": "self-correction",
+        "expected": "supersedes",
+        "relation": "supersedes",
+        "score": 0.99,
+        "correct": true
+      },
+      {
+        "id": "support",
+        "expected": "supports",
+        "relation": "supports",
+        "score": 1,
+        "correct": true
+      },
+      {
+        "id": "unrelated",
+        "expected": "none",
+        "relation": null,
+        "score": 1,
+        "correct": false
+      }
+    ],
+    "elapsedMs": 9084,
+    "mainCalls": 0,
+    "jevCalls": 30,
+    "mainInputTokens": 0,
+    "mainOutputTokens": 0,
+    "jevInputTokens": 12677,
+    "estimatedCny": 0.006338500000000001,
+    "requestErrors": 0
+  }
+]

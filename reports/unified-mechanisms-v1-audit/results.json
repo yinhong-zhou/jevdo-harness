@@ -1,0 +1,70 @@
+[
+  {
+    "track": "task",
+    "id": "task-failed-receipt-official-clean",
+    "case": "failed-receipt",
+    "arm": "official-clean",
+    "success": true,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "completed"
+    },
+    "actual": {
+      "endpoint": "https://svc-11.example.invalid/api",
+      "buildId": "release-51-b87",
+      "keepMe": "unchanged"
+    },
+    "inspections": 1,
+    "verifications": 1,
+    "elapsedMs": 4189,
+    "mainCalls": 4,
+    "jevCalls": 0,
+    "mainInputTokens": 29923,
+    "mainOutputTokens": 460,
+    "jevInputTokens": 0,
+    "estimatedCny": 0.063526,
+    "requestErrors": 0,
+    "originalLogChars": 40786,
+    "firstAdmittedLogChars": 40786,
+    "firstViewEvidenceKept": 2,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and the current release.json.\nThe log contains a verified RESULT line: `endpoint=https://svc-11.example.invalid/api; buildId=release-51-b87`. Let me write those values while preserving `keepMe`.\nDone. `release.json` now matches the verified checkout service.\n\n**What I did:**\n1. **Read the deployment log** — it was noisy (420 progress lines), but contained the authoritative verified result line:\n   `RESULT: verified release target. Actual service checkout healthcheck passed. endpoint=https://svc-11.example.invalid/api; buildId=release-51-b87.`\n2. **Read the current `release.json`** — it had placeholder values (`\"unset\"`) plus a `keepMe` field.\n3. **Updated only the two target fields**, preserving `keepMe`:\n   ```json\n   {\n     \"endpoint\": \"https://svc-11.example.invalid/api\",\n     \"buildId\": \"release-51-b87\",\n     \"keepMe\": \"unchanged\"\n   }\n   ```\n4. **Ran `verify_release`** → `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}`\n\nValues were taken directly from the log's verified RESULT line, not guessed. No archived log retrieval was needed, and all work stayed within this workspace."
+  },
+  {
+    "track": "task",
+    "id": "task-failed-receipt-unified",
+    "case": "failed-receipt",
+    "arm": "unified",
+    "success": true,
+    "externalStateCorrect": true,
+    "verifiedSuccess": true,
+    "outcome": {
+      "kind": "completed"
+    },
+    "actual": {
+      "endpoint": "https://svc-11.example.invalid/api",
+      "buildId": "release-51-b87",
+      "keepMe": "unchanged"
+    },
+    "inspections": 2,
+    "verifications": 2,
+    "elapsedMs": 37995,
+    "mainCalls": 12,
+    "jevCalls": 66,
+    "mainInputTokens": 177065,
+    "mainOutputTokens": 2499,
+    "jevInputTokens": 298931,
+    "estimatedCny": 0.7247884999999997,
+    "requestErrors": 3,
+    "originalLogChars": 40786,
+    "firstAdmittedLogChars": 40786,
+    "firstViewEvidenceKept": 2,
+    "expectedEvidence": 2,
+    "archives": 0,
+    "exactRecovery": 0,
+    "answer": "I'll start by reading the deployment log and inspecting the current state of the workspace.\nI have the verified values from the log. Let me read the current file to confirm its exact contents.\nThe log's RESULT line gives the verified target: `endpoint=https://svc-11.example.invalid/api`, `buildId=release-51-b87`. I'll write those in, preserving `keepMe`.\nDone. `release.json` now matches the verified checkout service.\n\n**What I did:**\n1. **Read the deployment log** (`inspect_deployment_log`). Buried among 420 lines of install-progress noise was the single authoritative result line:\n   > `RESULT: verified release target. Actual service checkout healthcheck passed. endpoint=https://svc-11.example.invalid/api; buildId=release-51-b87.`\n2. **Read the current file** — it had placeholder values (`\"unset\"` for both `endpoint` and `buildId`) plus a third field, `keepMe: \"unchanged\"`.\n3. **Wrote the verified values**, taking them verbatim from the log rather than inferring them, and preserved `keepMe` untouched.\n4. **Ran `verify_release`** → `{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}`\n\n**Final contents of `release.json`:**\n```json\n{\n  \"endpoint\": \"https://svc-11.example.invalid/api\",\n  \"buildId\": \"release-51-b87\",\n  \"keepMe\": \"unchanged\"\n}\n```\n\nTwo notes worth flagging:\n- The log's own `exitCode` was `1`, and it ended with `ERROR: configuration points to an obsolete deployment; fix release.json to the verified target above.` That error was the *pre-existing* state of the file, not a failure of my change — the `RESULT:` line is the verified target, and `verify_release` now passes.\n- The endpoint host is `svc-11.example.invalid`, a reserved non-resolvable domain. That's expected for a deployment-log fixture; I did not attempt to contact it, since the task was to reconcile the config file with the logged values.\n\nI did not register a JevAction here: this was a one-off data correction against a specific log line, with no stable reusable procedure or script behind it.\nI'll re-verify the actual on-disk state independently, rather than relying on my earlier write, and check the acceptance items.\nThe plan has no acceptance items registered, so I'll add them and verify each against real evidence.\nNow let me independently confirm the file is valid JSON with exactly the expected keys, and re-read the log to confirm the values match verbatim.\n`python3` isn't available (exit 9009 = command not found). Let me find an available interpreter for an independent structural check.\nIndependent structural check passes. Now let me close out the acceptance items with this evidence.\nAll three acceptance items are complete and verified. Here is the actual evidence.\n\n## Verification performed\n\n**1. Source of truth — re-read the log (`inspect_deployment_log`)**\n\nThe log is 420 lines of install-progress noise with one authoritative line at position 210:\n\n```\nRESULT: verified release target. Actual service checkout healthcheck passed.\nendpoint=https://svc-11.example.invalid/api; buildId=release-51-b87.\n```\n\nBoth values were copied verbatim from this line. Nothing was inferred or guessed.\n\n**2. Independent structural check of the file on disk**\n\n`python3` was unavailable (`exitCode 9009`, command not found), so I used `node` to parse the file rather than trusting my own write:\n\n```\nparsed_ok: true\nkeys: [\"buildId\",\"endpoint\",\"keepMe\"]\nendpoint: \"https://svc-11.example.invalid/api\"\nbuildId: \"release-51-b87\"\nkeepMe: \"unchanged\"\nendpoint_matches_log: true\nbuildId_matches_log: true\nkeepMe_preserved: true\nkey_count: 3\n```\n\nThis confirms the file is valid JSON, both target fields match the log exactly, `keepMe` is preserved, and no fields were added or dropped.\n\n**3. `verify_release` against the current file**\n\n```json\n{\"ok\":true,\"message\":\"Current release matches the deployment; validation passed.\"}\n```\n\n## Acceptance items\n\n| ID | Item | Status |\n|----|------|--------|\n| a1 | Read log, extract verified endpoint/buildId without guessing | ✅ done |\n| a2 | Fields match log values; other fields preserved | ✅ done |\n| a3 | `verify_release` passes | ✅ done |\n\n## Final state of `release.json`\n\n```json\n{\n  \"endpoint\": \"https://svc-11.example.invalid/api\",\n  \"buildId\": \"release-51-b87\",\n  \"keepMe\": \"unchanged\"\n}\n```\n\n## Two things worth your attention\n\n- **The log's own `exitCode` is `1`** and it ends with `ERROR: configuration points to an obsolete deployment; fix release.json to the verified target above.` That error describes the *pre-existing* state of the file (both fields were `\"unset\"`), not a failure of this change. The `RESULT:` line is the verified target, and `verify_release` now passes.\n- **The endpoint host is `svc-11.example.invalid`**, a reserved non-resolvable domain. That is expected for a deployment-log fixture. I did not attempt to contact it, since the task was to reconcile the config file with the logged values.\n\nI did not register a JevAction: this was a one-off data correction against a specific log line, with no stable reusable procedure or script behind it."
+  }
+]
