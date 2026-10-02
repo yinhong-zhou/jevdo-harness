@@ -17,4 +17,11 @@ local receipt uses the upstream stream settlement protocol with an explicit
 jevaction-template provider label and no network request. These sources are bundled
 into our plugin, not imported through unsupported package-private paths.
 
+The unified-harness adaptation also calls native pre-step projection and final
+settlement hooks, routes in-flight user input through a cancellable judgment,
+and monitors generated prose/tool arguments before durable assistant settlement.
+Rejected attempts do not create executable tool calls. Prompt assembly and
+surface replacements use public DSH APIs; no unknown durable event types or Pi
+runtime are introduced. Judgment policies live in src/harness.
+
 Upstream upgrades must be explicit and re-run the integration/lifecycle tests.

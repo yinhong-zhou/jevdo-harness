@@ -119,6 +119,8 @@ export class ReactLoopAgent implements Agent {
   private readonly systemPrompt: SystemPromptProjection
   /** Identities fully frozen by this loop; weak references do not retain replaced history. */
   private readonly frozenMessages = new WeakSet<Message>()
+  private inputRouting: Promise<void> = Promise.resolve()
+  private readonly inputAbort = new AbortController()
 
   constructor(
     private loopCtx: Context,
@@ -153,6 +155,25 @@ export class ReactLoopAgent implements Agent {
   }
 
   send(message: UserMessage, target: InboxTarget, wakeup: boolean): void {
+    const harness = this.ctx.get('jevHarness')
+    if (harness && this.status === 'running' && message.source.kind === 'user') {
+      this.inputRouting = this.inputRouting.then(async () => {
+        if (this.inputAbort.signal.aborted) return
+        const route = await harness.routeInput(this, message, target, this.inputAbort.signal)
+        if (route.interrupt && this.status === 'running') this.cancel({ kind: 'hook', reason: 'New user correction' }, { keepInbox: true })
+        this.sendDirect(message, route.target, wakeup)
+      }).catch(error => {
+        if (!this.inputAbort.signal.aborted) {
+          this.dispatch.emit('agent/error', { turn: 0, step: 0, error })
+          this.sendDirect(message, target, wakeup)
+        }
+      })
+      return
+    }
+    this.sendDirect(message, target, wakeup)
+  }
+
+  private sendDirect(message: UserMessage, target: InboxTarget, wakeup: boolean): void {
     // Waking input cannot join an aborted activity, so it starts the next turn.
     // Captured before the insertion so a reentrant cancel from a splice observer cannot reclassify it.
     const wakingAfterAbort = wakeup && this.phase.kind !== 'idle' && this.phase.abort.signal.aborted
@@ -174,6 +195,7 @@ export class ReactLoopAgent implements Agent {
   }
 
   cancel(cause: AgentCancelCause, options: CancelOptions = {}): void {
+    if (cause.kind === 'disposed') this.inputAbort.abort(cause)
     if (!options.keepInbox) {
       this.inbox.clear()
       if (this.phase.kind !== 'idle') this.phase.wakeRequested = false
@@ -237,9 +259,11 @@ export class ReactLoopAgent implements Agent {
 
   async whenIdle(): Promise<void> {
     let activity: Promise<void>
+    let routing: Promise<void>
     do {
+      await (routing = this.inputRouting)
       await (activity = this.activityDone)
-    } while (activity !== this.activityDone)
+    } while (activity !== this.activityDone || routing !== this.inputRouting)
   }
 
   /** Report one failure at its live boundary, then preserve it for driver containment. */
@@ -269,7 +293,9 @@ export class ReactLoopAgent implements Agent {
     /* v8 ignore next -- private callers establish the running phase before proposing a step */
     if (this.phase.kind !== 'running') throw new Error(`agent "${this.id}": pre-step outside running phase`)
     const signal = this.phase.abort.signal
-    const claimed = this.inbox.claim(target, position.turn)
+    let claimed = this.inbox.claim(target, position.turn)
+    const harness = this.ctx.get('jevHarness')
+    if (harness) claimed = await harness.beforeStep(this, claimed, position.turn, position.step, signal)
     const assembly = await this.loopCtx.systemPrompt.assemble(assembleContextFor(this, signal))
     signal.throwIfAborted()
     const sections = renderContextSections(assembly)
@@ -424,7 +450,13 @@ export class ReactLoopAgent implements Agent {
       }
       const consultJev = firstAttempt
       firstAttempt = false
-      const request = this.buildRequest(config, preparedCall, assembly.tools, { turn, step }, startsRequestSeries, signal)
+      let request = this.buildRequest(config, preparedCall, assembly.tools, { turn, step }, startsRequestSeries, signal)
+      const harness = this.ctx.get('jevHarness')
+      if (harness) {
+        request = await harness.project(this, request, signal)
+        deepFreeze(request.messages)
+        request = markAgentLoopRequest(Object.freeze(request))
+      }
       // The fast path sees EXACTLY the admitted request that would reach the main
       // model, after prompt assembly and pending input commits. No second history.
       if (consultJev) {
@@ -453,18 +485,26 @@ export class ReactLoopAgent implements Agent {
         (frame) => { this.dispatch.emit('agent/assistant-stream', { frame }) },
       )
       let started = false
+      const monitor = harness?.monitor(this, signal)
       try {
-        const stream = preparedCall?.stream(request) ?? this.loopCtx.llm.stream(request)
+        const streamRequest = monitor ? markAgentLoopRequest(Object.freeze({ ...request, signal: monitor.signal })) : request
+        harness?.warmer.remember(this, request)
+        const stream = preparedCall?.stream(streamRequest) ?? this.loopCtx.llm.stream(streamRequest)
         signal.throwIfAborted()
         live.start()
         started = true
         for await (const chunk of stream) {
           signal.throwIfAborted()
           live.push(chunk)
+          monitor?.observe(chunk)
         }
         signal.throwIfAborted()
       } catch (error: unknown) {
         if (!started) throw error
+        if (!signal.aborted && monitor?.broken.length && await monitor.finish()) {
+          live.settle('assistant/attempt', () => this.session.append('assistant/attempt', { turn, step, stream: live.stream }).seq)
+          return null
+        }
         try {
           if (signal.aborted) {
             const content = live.interruptedBlocks()
@@ -506,6 +546,10 @@ export class ReactLoopAgent implements Agent {
         throw error
       }
       try {
+        if (await monitor?.finish()) {
+          live.settle('assistant/attempt', () => this.session.append('assistant/attempt', { turn, step, stream: live.stream }).seq)
+          return null
+        }
         const finish = live.finish
         if (finish.kind === 'error' || finish.kind === 'aborted') {
           live.settle(
@@ -548,6 +592,7 @@ export class ReactLoopAgent implements Agent {
             stream: live.stream,
           }, { surfaceOp: 'append' }).seq,
         )
+        await harness?.afterAssistant(this, message, signal)
         if (finish.kind === 'max-tokens') return { kind: 'max-tokens' }
 
         const toolCalls = message.content.filter(block => block.type === 'tool-call')

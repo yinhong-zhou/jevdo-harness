@@ -21,11 +21,12 @@ import { Store } from '../store.ts';
 import { runCommand } from '../executor.ts';
 import { CommandSchema } from '../contracts.ts';
 import type { Decider } from '../contracts.ts';
+import type { HarnessOptions } from '../harness/runtime.ts';
 import { CompatibleChatModel, type ChatModel, type Message } from '../model.ts';
 
 // `default` is the historical routing ablation: official loop WITH Action support.
 // `official-clean` never installs any part of the JevAction plugin.
-export type Arm = 'default' | 'actions-off' | 'jevaction' | 'official-clean';
+export type Arm = 'default' | 'actions-off' | 'jevaction' | 'official-clean' | 'unified';
 export class ChatAdapter extends LlmAdapter {
   calls = 0;
   inputTokens = 0;
@@ -76,6 +77,7 @@ export class ChatAdapter extends LlmAdapter {
 export async function createHost(options: {
   home: string; projectId: string; cwd: string; arm?: Arm; decider?: Decider; chat?: ChatModel;
   persistence?: string; maxSteps?: number;
+  harness?: HarnessOptions;
 }) {
   const ctx = new Context();
   try {
@@ -98,7 +100,15 @@ export async function createHost(options: {
       ctx.tools.register({ name: tool.name, description: tool.description, parameters: parameters as ToolDefinition['parameters'],
         output: { schema: { type: 'string' }, render: (_args, value) => [{ type: 'text', text: String(value) }] },
         async execute(args, exec) {
-          const result = await tool.execute(args, exec.signal);
+          let activeTool = tool;
+          if (exec.agent?.session.header.cwd && resolve(exec.agent.session.header.cwd) !== resolve(options.cwd)) {
+            const childProject = (await store.projects()).find(p => resolve(p.root) === resolve(exec.agent!.session.header.cwd!));
+            if (!childProject) throw new Error('Worker workspace is not registered');
+            const scoped = (await projectTools(store, childProject.id)).find(t => t.name === tool.name);
+            if (!scoped) throw new Error('Tool is unavailable in worker workspace');
+            activeTool = scoped;
+          }
+          const result = await activeTool.execute(args, exec.signal);
           if (result.isError) throw new Error(result.output);
           return result.output;
         },
@@ -117,7 +127,9 @@ export async function createHost(options: {
         return JSON.stringify(await runCommand(target.root, { ...spec, cwd: '.' }, exec.signal));
       },
     });
-    const pluginOptions = { home: options.home, enabled: (options.arm ?? 'jevaction') === 'jevaction', commandMode: 'argv' as const };
+    const arm = options.arm ?? 'jevaction';
+    const pluginOptions = { home: options.home, enabled: arm === 'jevaction' || arm === 'unified', commandMode: 'argv' as const,
+      harness: { ...options.harness, enabled: arm === 'unified' } };
     const fiber = await ctx.plugin({ name: 'experiment-loop', inject, async apply(child: Context) {
       if (options.arm === 'official-clean') {
         await child.plugin(OfficialLoop, { agents: [] });

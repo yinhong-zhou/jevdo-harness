@@ -1,0 +1,73 @@
+import { defineDecision } from "../decision.ts";
+import { threeZone } from "../policy.ts";
+import type { Questions } from "../types.ts";
+
+/**
+ * A6, skill disclosure: every installed skill costs a description in the
+ * system prompt of every session, whether or not the work will ever touch it.
+ * One yes/no per skill decides which descriptions a session starts with.
+ *
+ * Only a confident "no" hides a skill, and hidden is not gone: `/skill:name`
+ * and the `find_skill` tool still reach it.
+ */
+export interface SkillCandidate {
+	readonly name: string;
+	readonly description: string;
+}
+
+export interface SkillDisclosureInput {
+	readonly userMessage: string;
+	readonly skills: readonly SkillCandidate[];
+}
+
+export type SkillDisclosureOutcome = {
+	/** Names of skills to leave out of the prompt. */
+	readonly hide: readonly string[];
+	/** Names the judge called relevant, for announcing a skill that was hidden earlier. */
+	readonly relevant: readonly string[];
+};
+
+const DESCRIPTION_LENGTH = 220;
+
+export function skillQuestionId(index: number): string {
+	return `skill_${index}`;
+}
+
+export const skillDisclosure = defineDecision({
+	id: "skills.disclosure",
+	version: 1,
+	// Decided once, on the first message, when there is no cached prefix to lose.
+	cacheImpact: "prefix-mutating",
+	latency: "inline",
+	capabilities: "relate",
+	questions: {} as Questions,
+	questionsFor(input: SkillDisclosureInput): Questions {
+		return Object.fromEntries(
+			input.skills.map((skill, index) => [
+				skillQuestionId(index),
+				{
+					type: "boolean" as const,
+					instructions: `Would this skill help with \`user_message\`? ${skill.name}: ${skill.description.slice(0, DESCRIPTION_LENGTH)}`,
+				},
+			]),
+		);
+	},
+	buildState(input: SkillDisclosureInput) {
+		return { user_message: input.userMessage };
+	},
+	policy(answers, input): SkillDisclosureOutcome {
+		const hide: string[] = [];
+		const relevant: string[] = [];
+		input.skills.forEach((skill, index) => {
+			const answer = answers[skillQuestionId(index)];
+			if (answer?.type !== "boolean") return;
+			const verdict = threeZone(answer);
+			if (verdict === "no") hide.push(skill.name);
+			if (verdict === "yes") relevant.push(skill.name);
+		});
+		return { hide, relevant };
+	},
+	fallback(): SkillDisclosureOutcome {
+		return { hide: [], relevant: [] };
+	},
+});

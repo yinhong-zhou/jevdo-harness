@@ -25,3 +25,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+# MU judgment kernel
+
+This repository additionally incorporates the framework-independent MU judgment kernel, decision definitions and supporting data structures from `qybaihe/mu`, commit `8dfebe36508ac0c2508735bb866756dab9283e74`, under MIT. The original license is preserved in `src/vendor/mu/LICENSE`; exact source paths and hashes are in `src/vendor/mu/UPSTREAM.json`. This is a port of MU mechanisms to DeepSeek Harness, not a claim to have invented those mechanisms. No Pi runtime or MU desktop application is included.

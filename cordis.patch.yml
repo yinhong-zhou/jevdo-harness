@@ -3,7 +3,7 @@
 - id: agent-loop
   disabled: true
 - insert:
-    - id: jevaction-loop
-      name: jevaction
+    - id: jevdo-harness
+      name: jevdo-harness
       config:
         agents: []

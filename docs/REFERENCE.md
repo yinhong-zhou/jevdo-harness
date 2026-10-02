@@ -1,5 +1,7 @@
 # JevDo 配置与实现参考
 
+> 原轻量 JevDo 的历史参考。整合版包名、插件 ID 与配置以 [CONFIGURATION.md](CONFIGURATION.md) 为准；Action 工具名仍兼容 `jevaction_*`。
+
 [返回项目首页](../README.md) · [Action 规格](ACTION_SPEC.md) · [使用场景](ACTION_USAGE.md)
 
 ## 使用形式

@@ -1,0 +1,179 @@
+{
+  "repository": "https://github.com/qybaihe/mu",
+  "revision": "8dfebe36508ac0c2508735bb866756dab9283e74",
+  "source": "packages/kyrn-judge/src",
+  "files": [
+    {
+      "file": "admission/test-log.ts",
+      "sha256": "4e08cc367b67a1e2753e875e5ccccf6cfd99a3f3534d1ca143c318aa9644b6cf"
+    },
+    {
+      "file": "compaction/history.ts",
+      "sha256": "3edeac60129f11f73a8e0a79909cf14bff9e334cf7c40c4cc5f7f9773c67e048"
+    },
+    {
+      "file": "compaction/prune.ts",
+      "sha256": "3547d4f630d0d3d65e6218a89574cfc1ee13061fc094a06fbf06b3f6da85b323"
+    },
+    {
+      "file": "decision.ts",
+      "sha256": "86a908d558bbea00feafd1eb34d397242db349db8dd5039ba324849047ddc112"
+    },
+    {
+      "file": "decisions/board-read.ts",
+      "sha256": "d6018beac855649b00e3e3e097dc5b8cf874fa333f6593a0f3dfee1454331931"
+    },
+    {
+      "file": "decisions/browser-step.ts",
+      "sha256": "fc87136a6133c40bda3a20acf5aab91044f4b0d61c7f68f7c8f84724b0105d64"
+    },
+    {
+      "file": "decisions/cache-warming.ts",
+      "sha256": "798d051e25dee4d4fcf54ec1cbf5722bc4db635a2a47fec8ebf01e836c75c07b"
+    },
+    {
+      "file": "decisions/capability-disclosure.ts",
+      "sha256": "c94a5084b9c5d3dc6286af89277da198d178033aa0883fd1f3a3435cfea67579"
+    },
+    {
+      "file": "decisions/context-compact.ts",
+      "sha256": "fc7cf3c9be03937abb197602e0fb7cb18e667a07ff5fb97cd54fec0f6344e0b1"
+    },
+    {
+      "file": "decisions/context-forget.ts",
+      "sha256": "16ea4051dff5dc4362da1d5a295a1bfe9cdda7a8b370974716060762d7dfd54a"
+    },
+    {
+      "file": "decisions/diagnostics-delivery.ts",
+      "sha256": "396b958aefd8e5d8e64068e3ad49fcdfbebee1cc1a11c8e5bbd72f18fb94e5d3"
+    },
+    {
+      "file": "decisions/file-locate.ts",
+      "sha256": "6400b551effc11de5c0a74e60bee77cf98709ec19e1dae9c2cbe7af971603f28"
+    },
+    {
+      "file": "decisions/goal-met.ts",
+      "sha256": "163436825c2da0c762b63f8988cacaa7917cebb1def01b1e3041905a0b9d937a"
+    },
+    {
+      "file": "decisions/hive.ts",
+      "sha256": "8bd40eb4e1e1793f3d5821c4144a40f3662fbcbcb75d27efd35483c46d0c3314"
+    },
+    {
+      "file": "decisions/input-preflight.ts",
+      "sha256": "18a690cfcceaf63531a77c05c0f0c21868138a2f6589ee53b7ed78a578d28ab1"
+    },
+    {
+      "file": "decisions/interjection.ts",
+      "sha256": "7031a818382dec5d4e07b98bb8751a7db41d8d171ee88ed762e02302515ca695"
+    },
+    {
+      "file": "decisions/memory.ts",
+      "sha256": "c44ad518dd373ddb7f8d894c7014a7ca8fb2cc9a72c5a1b074b42dcb60166131"
+    },
+    {
+      "file": "decisions/notify-routing.ts",
+      "sha256": "5cf26a20a04619c6e3e8fe4f64144d6e98f1ba5d4d6e12c2f5b647f5557c528f"
+    },
+    {
+      "file": "decisions/output-drift.ts",
+      "sha256": "76f0bb3576b4949642c19717dcd4c87d582db3428b9a98536bf3ef2843a107f2"
+    },
+    {
+      "file": "decisions/review-triage.ts",
+      "sha256": "d07b3f29aad5d514893458f0dc6df17106e76f13823ecd6018c5f26220ab5bc5"
+    },
+    {
+      "file": "decisions/skill-disclosure.ts",
+      "sha256": "6fb72f8f4c35884f5773c5152e55f5ecc5ac9226d2faa8b86f5d488580aa639a"
+    },
+    {
+      "file": "decisions/swarm-patch.ts",
+      "sha256": "4d632cc1cf4ede322dc66c94e74c0816abaf1fb4909c47d562b0a7c15f85d1e0"
+    },
+    {
+      "file": "decisions/swarm-routing.ts",
+      "sha256": "e4bcfff181d52fbf169788f77e127d76263b334a7ecf0a44b044eca14b6ed8ab"
+    },
+    {
+      "file": "decisions/task-frame.ts",
+      "sha256": "237a84e3e351a3d832ce7829fcd54911aabca4fce00d9cb9b9ef3f92212c17b2"
+    },
+    {
+      "file": "decisions/tool-admission.ts",
+      "sha256": "a0cfdb212d6c614746f65779f1204e2adb4d727e49d4d7e7d59e997fa0136f27"
+    },
+    {
+      "file": "decisions/tool-approval.ts",
+      "sha256": "d428bdd23011e61810a29fcae1d2882b3aab5ff0e39ff1a225e2f32c591faa43"
+    },
+    {
+      "file": "decisions/tool-constraint.ts",
+      "sha256": "277c86ff5e80af02e0ca6190fc6a407d8fa04c68c44efa7925a925fcaa3e6b79"
+    },
+    {
+      "file": "decisions/tool-risk.ts",
+      "sha256": "926e8990893860e2307c31149df51909c4787975c25ad65fe53a7b2dd0c3e91d"
+    },
+    {
+      "file": "decisions/turn-completion.ts",
+      "sha256": "0558cd61a8a90e803f0f384b21e1bc18ce8c30203ef5d26ec325afb7e0c61f8d"
+    },
+    {
+      "file": "decisions/turn-drift.ts",
+      "sha256": "b86fc73d6f77ec4a3d4f4dd14a3a6400385804a0797c489502a4b40da075b4c1"
+    },
+    {
+      "file": "decisions/turn-rewind.ts",
+      "sha256": "b8c89716ff82926b4291617af169608be0b5bab97e0626a368389e74ea2bd568"
+    },
+    {
+      "file": "errors.ts",
+      "sha256": "53b5a51d61df42d260589c0fa74560e2cee42e14e723cf94223cee6ed8538682"
+    },
+    {
+      "file": "frame/frame.ts",
+      "sha256": "a7844bf893ebce4c4472fe88fd75a2ee3eb233de13aff1c81f5196fdb90a9b52"
+    },
+    {
+      "file": "hive/board.ts",
+      "sha256": "14c25455df54aa516601cbdf4790675927fdc43be716b0d7c35c1551dd0b400a"
+    },
+    {
+      "file": "judge.ts",
+      "sha256": "d9ae9a844607aca8b61c83cd3d6fdad423a672e8fc7239b0e7e94872a52983d0"
+    },
+    {
+      "file": "ledger.ts",
+      "sha256": "98dc95f40ffd2bcdb3f045c28bb5733ad59fff4b380b7209ec8e875e2aedca48"
+    },
+    {
+      "file": "memory/store.ts",
+      "sha256": "ba68081877f9a8e5e0a8bcd136761a19cb84f22d1ccffb1d076d038758305419"
+    },
+    {
+      "file": "policy.ts",
+      "sha256": "4bdff25110b99dd279d17b37a54d5994dcb9213881b9a3d0c69a26404d7cd754"
+    },
+    {
+      "file": "providers/gateway.ts",
+      "sha256": "80f8a25ff7020c9ec869b7cabb920f2799612afad84fa7b9e06527dc489134ab"
+    },
+    {
+      "file": "providers/http.ts",
+      "sha256": "18b7c1dcbd3bc1d51163d5d1fb1cae3ef15f5b91e6b3531c24bad6404856cbe9"
+    },
+    {
+      "file": "providers/typesafe.ts",
+      "sha256": "0738cbdedabc7a6f59e00a7174b7d7bb9a0e42ab29978a7a70fec819ac086df8"
+    },
+    {
+      "file": "redact.ts",
+      "sha256": "dc384a23eca4767b96711602cfad2bf8aeac280e0dde3b16992339de622c217c"
+    },
+    {
+      "file": "types.ts",
+      "sha256": "c92c2e991593e1deab4b60283bea211fc02655d4b6c0861a083cfe4bea498c19"
+    }
+  ]
+}

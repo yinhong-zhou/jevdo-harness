@@ -1,0 +1,13 @@
+{
+  "mode": "active",
+  "permissionMode": "host",
+  "admissionChars": 4000,
+  "compactChars": 100000,
+  "keepRecentResults": 3,
+  "monitorEvery": 4,
+  "maxGoalContinuations": 20,
+  "team": { "maxWorkers": 4, "maxDepth": 1, "timeoutMs": 180000 },
+  "browser": { "enabled": false, "channel": "chrome", "headless": true, "maxSteps": 12 },
+  "observations": { "enabled": false, "debounceMs": 350 },
+  "cacheWarming": { "enabled": false }
+}

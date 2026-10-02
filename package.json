@@ -1,19 +1,45 @@
 {
-  "name": "jevaction",
+  "name": "jevdo-harness",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "dist/index.js",
-  "exports": { ".": "./dist/index.js", "./cordis.patch.yml": "./cordis.patch.yml", "./package.json": "./package.json" },
-  "files": ["dist/index.js", "prompts", "cordis.patch.yml", "THIRD_PARTY_NOTICES.md", "LICENSE", "README.md"],
+  "bin": { "jevdo-harness": "dist/cli.js" },
+  "exports": {
+    ".": "./dist/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "prompts",
+    "config",
+    "docs/CONFIGURATION.md",
+    "src/vendor/mu/LICENSE",
+    "src/vendor/mu/UPSTREAM.json",
+    "src/vendor/dsh-loop/LICENSE",
+    "cordis.patch.yml",
+    "THIRD_PARTY_NOTICES.md",
+    "LICENSE",
+    "README.md",
+    "README.en.md",
+    "assets/brand/jevdo-icon.png"
+  ],
   "license": "MIT",
-  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } },
-  "description": "A lightweight agent loop with Jev decisions and persistent reusable actions",
+  "repository": { "type": "git", "url": "git+https://github.com/yinhong-zhou/jevdo-harness.git" },
+  "homepage": "https://github.com/yinhong-zhou/jevdo-harness",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "description": "Jev-centered orchestration, reusable Actions and MU's judgment mechanisms on DeepSeek Harness",
   "engines": {
     "node": ">=24.14.0"
   },
   "scripts": {
     "check": "tsc --noEmit",
+    "eval:unified": "node --import tsx --env-file-if-exists=.env scripts/evaluate-unified.ts",
     "build": "node scripts/build.mjs",
     "prepack": "npm run build",
     "test": "node --import tsx --test test/*.test.ts",
@@ -33,11 +59,14 @@
     "@deepseek-ai/dsh-agent-loop": "0.2.0-rc.1",
     "@deepseek-ai/dsh-brand": "0.2.0-rc.1",
     "@deepseek-ai/dsh-session-persistence-jsonl": "0.2.0-rc.1",
+    "@deepseek-ai/dsh-skill": "0.2.0-rc.1",
     "@deepseek-ai/dsh-util-values": "0.2.0-rc.1",
     "@deepseek-ai/schemastery": "3.18.4",
+    "playwright-core": "1.63.0",
     "zod": "4.4.3"
   },
   "devDependencies": {
+    "@deepseek-ai/dsh-tool-skill": "0.2.0-rc.1",
     "@types/node": "24.7.2",
     "esbuild": "0.25.10",
     "tsx": "4.20.6",

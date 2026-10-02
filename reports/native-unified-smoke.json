@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-02T14:43:39.500Z",
+  "version": "0.2.0-rc.1",
+  "success": true,
+  "artifact": "alpha:2",
+  "stages": [
+    {
+      "stage": "initialize",
+      "code": 0
+    },
+    {
+      "stage": "install",
+      "code": 0
+    },
+    {
+      "stage": "compose",
+      "code": 0
+    },
+    {
+      "stage": "execute",
+      "code": 0
+    }
+  ],
+  "judgmentPoints": [
+    "input.preflight",
+    "task.frame",
+    "memory.capture",
+    "skills.disclosure",
+    "action.next",
+    "board.read",
+    "turn.completion"
+  ],
+  "judgmentFallbacks": [],
+  "output": "{\"type\":\"session\",\"sessionId\":\"session-6edc3a14-2e72-44eb-a343-d48f49028029\",\"cwd\":\"C:\\\\Users\\\\ZYH-1\\\\Desktop\\\\mywork\\\\jevdo-harness\\\\.runtime\\\\native-unified-1790952147190\\\\alpha\"}\n{\"type\":\"status\",\"phase\":\"turn_start\",\"turn\":1}\n{\"type\":\"status\",\"phase\":\"step_start\",\"turn\":1,\"step\":1}\n{\"type\":\"status\",\"phase\":\"step_end\",\"turn\":1,\"step\":1}\n{\"type\":\"status\",\"phase\":\"step_start\",\"turn\":1,\"step\":2}\n{\"type\":\"text\",\"text\":\"build_artifact (alpha)\\nBUILT alpha\\n\\n\\nVERIFIED alpha:2\\n\\n\"}\n{\"type\":\"status\",\"phase\":\"step_end\",\"turn\":1,\"step\":2}\n{\"type\":\"status\",\"phase\":\"turn_end\",\"turn\":1,\"reason\":{\"kind\":\"completed\"}}\n{\"type\":\"final\",\"text\":\"build_artifact (alpha)\\nBUILT alpha\\n\\n\\nVERIFIED alpha:2\\n\\n\"}\n",
+  "localEvidence": "C:\\Users\\ZYH-1\\Desktop\\mywork\\jevdo-harness\\.runtime\\native-unified-1790952147190"
+}

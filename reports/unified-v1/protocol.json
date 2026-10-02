@@ -1,0 +1,43 @@
+{
+  "id": "unified-v1",
+  "createdAt": "2026-10-02T14:38:52.876Z",
+  "rows": 17,
+  "source": "Self-authored executable developer fixtures; not a public benchmark.",
+  "models": {
+    "main": "deepseek-flash",
+    "judge": "jev-latest"
+  },
+  "arms": [
+    "official-clean",
+    "jevaction",
+    "unified"
+  ],
+  "comparison": "Pinned original DSH loop without Action support; JevDo Action loop with harness disabled; combined loop with all available judgment points active.",
+  "sequence": "Each arm has its own project and empty Action library. Baseline runs each task once; plugin arms run the same two tasks three times in fresh sessions while retaining only library/project files. All arms then run start-and-edit once.",
+  "reset": "Reset fixture source, service state and outputs before every trial; verify effects independently outside model workspace. No user request to save Actions; both plugin arms receive the same Action-authoring policy.",
+  "configuration": "Default active judgment modes; no optional browser/checker/watcher/cache-warming backends or alternative model routes in these tasks. This experiment does not exercise all 35 points.",
+  "controls": {
+    "concurrency": 3,
+    "maxSteps": 24,
+    "timeoutMs": 300000,
+    "temperature": 0,
+    "thinking": "disabled",
+    "maxOutputTokens": 3000
+  },
+  "cost": "Fixed accounting assumptions inherited from JevDo experiments: CNY 2/M main input, 8/M main output, 0.5/M Jev input. Estimates only, not verified current tariffs or invoices. All API requests counted, including auxiliary writers.",
+  "limitations": [
+    "One rollout per cell, small scripted project, no baseline variance estimate.",
+    "Repeated plugin trials measure accumulation plus routing, not routing alone.",
+    "Parallel wall times include contention.",
+    "No hand repair or cherry-picking. Failures remain in results."
+  ],
+  "sourceHashes": {
+    "src/harness/runtime.ts": "923fbefa21104a17c3ec374631c9ec251bcc2986b9fbc76bafd25972629bfe0e",
+    "src/harness/kernel.ts": "924a7619d8ef744fcdde025939762c6253ebf27c5e5f01ed75d5eed5e2d58ef6",
+    "src/harness/context.ts": "f9d49cd63bdbdc86b4f4b0f6c8670612411d34a3d3eeead0736eb54d6255ed74",
+    "src/vendor/dsh-loop/agent.ts": "21b761364bc83cbc5f35833f5d33e9eb3ad2ba2fb70cd056ad8e7f534a9fada5",
+    "src/dsh/policy.ts": "b671a5dcf8a23eb72ff581a02c4d194eb0f91c06af79a868ba507c9c6fd4e0a5",
+    "scripts/evaluate-unified.ts": "dac0ad6d076f05704398dc19571ff3988ddadc1a47a8ccb6831f493506be2e47",
+    "scripts/developer-fixtures.ts": "ec367ad1459e2dbfed96afd13ac03c029b19072bbf617afdd0bd710f673eb86c"
+  }
+}

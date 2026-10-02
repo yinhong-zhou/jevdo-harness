@@ -9,3 +9,5 @@ coverage/
 *.log
 dist/
 *.tgz
+.reference/
+.jevdo/

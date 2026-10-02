@@ -1,151 +1,69 @@
-<p align="center">
-  <img src="assets/brand/jevdo-icon.png" width="112" alt="JevDo">
-</p>
-
-<h1 align="center">JevDo</h1>
-
+<p align="center"><img src="assets/brand/jevdo-icon.png" width="112" alt="JevDo" /></p>
+<h1 align="center">JevDo Harness</h1>
 <p align="center"><strong>The model is a tool now.</strong></p>
-<p align="center">
-  A new harness architecture with Jev at its core.<br>
-  Actions preserve experience · Jev decides what comes next · The main model is one option
-</p>
+<p align="center">Jev orchestrates. Actions retain proven operations. The main model handles new problems.</p>
 <p align="center"><em>Just Jev it.</em></p>
+<p align="center"><a href="README.md">简体中文</a> · <strong>English</strong> · <a href="docs/MIGRATION.md">35 judgment points</a> · <a href="reports/unified-v1/ANALYSIS.md">Evaluation</a></p>
 
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-d8c9ed?style=flat-square&amp;labelColor=eee8f6" alt="MIT license"></a>
-  <a href="docs/REFERENCE.md"><img src="https://img.shields.io/badge/DSH-0.2.0--rc.1-c8cdf2?style=flat-square&amp;labelColor=e9eafb" alt="DSH 0.2.0-rc.1"></a>
-  <a href="package.json"><img src="https://img.shields.io/badge/Node.js-24.14%2B-c6e3f3?style=flat-square&amp;labelColor=e7f1f8" alt="Node.js 24.14+"></a>
-</p>
+Your coding agent already knows how to start the project and run its tests. Why should it generate those operations again tomorrow?
 
-<p align="center">
-  <a href="README.md">简体中文</a> · <b>English</b>
-</p>
-<p align="center">
-  <a href="#the-handoff-in-practice">Use cases</a> · <a href="#quick-start">Quick start</a> · <a href="#the-loop">The loop</a> · <a href="#early-results">Results</a>
-</p>
+**JevDo Harness puts Jev in charge of the next step.** When a verified Action can do the work, the harness executes it through the host's tools. When a task needs new reasoning, code, or recovery, Jev calls the main model. The same judgment kernel also controls context admission, skills, permissions, memory, progress and communication between agents.
 
-**Your agent can write the application. Tomorrow, it may still have to rediscover how to start it.** Read the config, find the script, assemble the command, inspect the result. JevDo asks a question before calling the main model: do we already know how to do this? Jev selects reusable operations when they fit and calls the main model for new work. As that model solves problems, it saves suitable operations as verified **Actions**, ready for another session.
+An independent **DeepSeek Harness default-loop replacement**, combining [JevDo](https://github.com/yinhong-zhou/jevdo)'s persistent Actions with all 35 pinned [MU](https://github.com/qybaihe/mu) judgment definitions, adapted to native DSH/Cordis services. Targets **DSH 0.2.0-rc.1 and Node.js 24.14+**. No Pi runtime.
 
-## The handoff in practice
-
-Three illustrative workflows, assuming the project already has the corresponding validated Actions.
-
-**① Fix a bug**
-
-“Start the backend, fix the order-list pagination bug, then run unit tests and build.”
+## A handoff
 
 ```text
-Jev    Start dependencies and services; check readiness  [start-admin-backend]
-  ↓
-Model  Read the issue, locate and fix the pagination bug
-  ↓
-Jev    Test, build, verify exit codes and artifacts      [test-and-build]
-  ↓
-Model  Explain the fix and verification results
+“Start the project, add a function, then run tests and build.”
+
+Jev          → saved start Action → host execution → readiness check
+Main model   → understand the request → edit code
+Jev          → saved test/build Actions → verify current artifacts
+Main model   → explain changes and results
 ```
 
-**② Fix a failing CI check**
+For a pure repeat request such as “start the project,” valid Actions can finish with **zero main-model calls**. Jev requests still have a cost. The model can save useful commands or scripts as Actions while solving new tasks. Draft creation, execution, verification and activation are separate; stale implementations are revalidated.
 
-“CI lint failed again. Reproduce it locally, fix it, and verify it passes.”
+## What is integrated
 
-```text
-Jev    Prepare dependencies; reproduce lint with CI config  [repro-ci-lint]
-  ↓
-Model  Fix the reported errors
-  ↓
-Jev    Rerun lint and pre-push checks                       [verify-before-push]
-  ↓
-Model  Explain the changes and suggest a commit message
-```
+- **Orchestration:** closed-choice Actions, project bindings, model handoff, clarification and completion; optional configured model routing.
+- **Context and control:** native skills, tool packs, log selection, recoverable output archives, task constraints, risk checks, goals and project lessons.
+- **Teams:** native DSH workers, conversation forks, Git worktrees, publication/delivery gates and explicit disputed findings. Isolated patches include new files and are returned for review.
+- **Observation:** a human progress feed outside the working transcript; optional real Chrome/Edge automation, checker diagnostics, workspace notifications and cache warming.
 
-**③ Prepare a release**
+Jev scheduling and the main model consume the same assembled and admitted history. Native surface replacements preserve call/result pairing and raw event records. Each point supports `active`, `shadow` or `off`. No semantic verdict can override a host permission denial.
 
-“Run the release workflow: version, changelog, tag, and build artifacts.”
-
-```text
-Jev    Run regression tests; check release conditions    [regression-gate]
-  ↓
-Model  Review merged changes; update version and CHANGELOG
-  ↓
-Jev    Run the project script to tag, build, and verify   [cut-release]
-  ↓
-Model  Draft the release notes
-```
-
-**Jev schedules repeatable operations; the main model handles new problems.** A full start → code edit → test/build handoff has [run in our experiments](reports/developer-workflows-v3/ANALYSIS.md). When existing Actions cover the entire request and completion checks pass, Jev can finish requests such as “start the project” or “run regression tests” with **zero main-model calls**.
-
-## The loop
-
-- **Jev decides what happens next.** It receives the same assembled conversation and tool history as the main model, then selects an Action, a model call, clarification, or completion.
-- **Actions preserve how to act.** A command or script, its purpose, project binding, and verifier. Simple commands stay simple; complex repeatable workflows are usually better kept in scripts.
-- **The main model solves new problems and maintains the library.** It writes code, reasons, handles failures, and saves reusable operations while working.
-
-> Built on DeepSeek Harness. Early release, focused on headless DSH 0.2.0-rc.1. Package and tool names retain `jevaction`. Once the main model participates, it owns the final response.
-
-```mermaid
-flowchart LR
-    U["Task and conversation"] --> J{"Jev"}
-    J -->|Existing Action| A["Harness execution and verification"]
-    J -->|New work or failure| M["Main model"]
-    A --> H["Results in shared history"]
-    M -->|Tool calls and results| H
-    H --> J
-    M -.->|Save and validate| K[("Action library")]
-    K -.->|Available operations| J
-    classDef judge fill:#ede8ff,stroke:#9b8deb,color:#302653
-    classDef model fill:#eef3ff,stroke:#5171ae,color:#162b50
-    class J judge
-    class M model
-```
-
-Jev selects; code executes. Candidates have registered IDs and concrete parameter sources. Commands still pass through host permissions and verification. Missing bindings, changed implementations, and execution failures return control to the main model.
-
-## Learning an Action
-
-The main model inspects the project, saves an operation through `jevaction_create`, and validates it through `jevaction_validate`. The plugin supplies authoring guidance automatically, including proactive maintenance and explicit user requests not to save.
-
-In another session, Jev selects the Action and project. The harness fills in the stored execution parameters, runs the operation, and checks its effect. A successful operation may still leave reasoning or editing work for the main model.
-
-Action definitions, project bindings, implementation fingerprints, and validation receipts are persisted separately. Implementation changes require revalidation; ordinary input changes are handled by effect verification. See the [specification](docs/ACTION_SPEC.md) and [usage guide](docs/ACTION_USAGE.md) (Chinese).
-
-## Early results
-
-Four repeated developer tasks: start services, test/build, publish locally, and roll back. Every arm receives the same existing scripts. Libraries start empty. The unmodified DSH loop runs each task once in the same minimal headless host. JevDo runs three rounds with identical inputs, fresh sessions, and a persistent Action library.
-
-| Per four tasks | Native loop | JevDo round 1 | Round 2 | Round 3 |
-|---|---:|---:|---:|---:|
-| Main-model calls | 31 | 33 | **8** | **8** |
-| Tasks without a main-model call | 0/4 | 0/4 | **3/4** | **3/4** |
-| Mean duration | 9.54 s | 19.52 s | 6.89 s | 6.64 s |
-| Estimated cost, including Jev | CNY 0.2771 | CNY 0.8408 | CNY 0.3214 | CNY 0.3091 |
-
-These are the autonomous-save results. Each warm round used about **74% fewer main-model calls** than the native control. The explicitly-required-save condition performed less efficiently. **Overall cost is not yet lower:** learning has a cost, and Jev also processes the complete history.
-
-This is one rollout per condition on a small authored workload, not an official benchmark score. A Jev misselection followed by model recovery occurred; passing the final checks does not establish that every routing decision was correct. [Full report](reports/developer-workflows-v3/REPORT.md) · [Analysis](reports/developer-workflows-v3/ANALYSIS.md) · [Raw traces](reports/developer-workflows-v3/traces)
-
-## Quick start
-
-Requires **Node.js 24.14+**. Try persistent Action reuse without API keys:
+## Start
 
 ```bash
-git clone https://github.com/yinhong-zhou/jevdo.git
-cd jevdo
+git clone https://github.com/yinhong-zhou/jevdo-harness.git
+cd jevdo-harness
 npm ci
-npm run demo
+# Copy .env.example to .env; set TYPESAFE_API_KEY and DEEPSEEK_API_KEY.
+npm run doctor
+npm start -- register my-project /absolute/path/to/project
+npm start -- ask my-project "Start the project and verify readiness"
 ```
 
-For live Jev calls, configure `TYPESAFE_API_KEY`. The experimental CLI also reads the main-model configuration in `.env.example`; a native DSH installation uses its host's model configuration. Build with `npm run build`, then follow the [DSH installation and configuration reference](docs/REFERENCE.md) (Chinese).
-
-## Development
+The headless CLI enables the unified loop. `npm run demo` is offline. To install into an existing DSH host:
 
 ```bash
-npm run check
-npm test
 npm run build
+dsh --profile jevdo-harness --from-default-profile headless --dump-config
+dsh plugin --profile jevdo-harness add /absolute/path/to/jevdo-harness
+dsh --profile jevdo-harness "Inspect this project and save useful operations as Actions"
 ```
 
-Learned recipes currently use fixed commands and project bindings. Arbitrary learned parameters, full Web UI compatibility, and multi-agent plugin combinations are outside the verified scope. Start at [src/dsh/index.ts](src/dsh/index.ts). [Report an issue](https://github.com/yinhong-zhou/jevdo/issues).
+Supply Jev credentials in the DSH process environment. The plugin uses the host's model adapters, tools and permissions. See [configuration](docs/CONFIGURATION.md) for optional backends and migration of configured startup agents.
 
-## License and credits
+## Evidence and limits
 
-MIT. Built on DeepSeek Harness with an adapted copy of its official loop lifecycle. Upstream copyright and provenance are retained in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and the [vendored loop](src/vendor/dsh-loop).
+Behavioral tests exercise real DSH sessions, commands, file edits, worktrees and a local browser, with deterministic judgment fixtures. They demonstrate integration behavior, not live model accuracy.
+
+The [live comparison](reports/unified-v1/ANALYSIS.md) runs native DSH, JevDo and the combined harness on the same self-authored developer tasks, with empty initial Action libraries, fresh sessions and externally checked effects. It reports cold/warm requests, latency, token usage and fixed-rate cost estimates. One rollout per cell is not a general benchmark. Inherited `developer-workflows-*` reports belong to earlier JevDo experiments.
+
+The first release is verified headlessly, without MU's desktop UI. Tool packs need grouping configuration. Compaction targets tool receipts, not arbitrary long conversations. Isolated workers start at clean Git HEAD; parent uncommitted edits are absent. Rewind proposes checkpoints and never automatically reverts. Diagnostics require a configured checker. Cache warming is opt-in and billed. More judgment points mean more inference, not guaranteed savings.
+
+[Migration matrix and source pins](docs/MIGRATION.md) · [Action format](docs/ACTION_SPEC.md) · [Third-party notices](THIRD_PARTY_NOTICES.md)
+
+MIT. Credit to MU for its judgment mechanisms and DeepSeek Harness for its runtime and plugin architecture.

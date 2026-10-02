@@ -1,153 +1,103 @@
-<p align="center">
-  <img src="assets/brand/jevdo-icon.png" width="112" alt="JevDo">
-</p>
-
-<h1 align="center">JevDo</h1>
-
+<p align="center"><img src="assets/brand/jevdo-icon.png" width="112" alt="JevDo" /></p>
+<h1 align="center">JevDo Harness</h1>
 <p align="center"><strong>The model is a tool now.</strong></p>
-<p align="center">
-  以 Jev 为调度核心的新一代 harness 架构。<br>
-  Action 沉淀经验 · Jev 决定下一步 · 大模型只是选项之一
-</p>
+<p align="center">以 Jev 为调度核心的 DeepSeek Harness。<br/>Action 沉淀做法 · Jev 决定下一步 · 大模型处理新问题</p>
 <p align="center"><em>Just Jev it.</em></p>
+<p align="center"><strong>简体中文</strong> · <a href="README.en.md">English</a> · <a href="docs/CONFIGURATION.md">配置</a> · <a href="docs/MIGRATION.md">35 个接入点</a> · <a href="reports/unified-v1/ANALYSIS.md">实验</a></p>
 
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-d8c9ed?style=flat-square&amp;labelColor=eee8f6" alt="MIT license"></a>
-  <a href="docs/REFERENCE.md"><img src="https://img.shields.io/badge/DSH-0.2.0--rc.1-c8cdf2?style=flat-square&amp;labelColor=e9eafb" alt="DSH 0.2.0-rc.1"></a>
-  <a href="package.json"><img src="https://img.shields.io/badge/Node.js-24.14%2B-c6e3f3?style=flat-square&amp;labelColor=e7f1f8" alt="Node.js 24.14+"></a>
-</p>
+你的 Agent 已经会启动项目、运行测试、发布构建。为什么下次打开项目，它还要重新思考一遍？
 
-<p align="center">
-  <b>简体中文</b> · <a href="README.en.md">English</a>
-</p>
-<p align="center">
-  <a href="#接力长什么样">使用场景</a> · <a href="#快速开始">快速开始</a> · <a href="#一轮是怎么走的">工作方式</a> · <a href="#实测">实验结果</a>
-</p>
+**JevDo Harness 把“下一步怎么做”的位置交给 Jev。** 已有经过验证的 Action，就通过宿主工具直接执行；需要理解新问题、修改代码、处理异常，再唤起主模型。与此同时，Jev 参与上下文取舍、权限判断、经验记忆、进度汇报和 Agent 协作。一个调度核心，一份会话记录，做过的事情可以成为下一次直接使用的能力。
 
-**你的 Agent 能写出复杂的程序，却记不住自己昨天怎么启动它。** 第十次打开同一个项目，它还在读配置、找脚本、拼命令，把上周已经走通的路再想一遍。JevDo 在调用大模型之前，先让 **Jev** 判断：这件事，是不是已经会了？已有操作能处理，就直接调度执行；遇到新问题，再交给主模型。主模型把值得复用的做法保存为 **Action**，经过验证，留给下一次会话。
+这是一个独立的 **DSH 默认 Agent Loop 替换插件**：整合 [JevDo](https://github.com/yinhong-zhou/jevdo) 的 Action 循环与 [MU](https://github.com/qybaihe/mu) 的 35 个判断点，全部运行在 DSH/Cordis 中。兼容 **DSH 0.2.0-rc.1 / Node.js 24.14+**。
 
-## 接力长什么样
+## 看一次接力
 
-三个使用示例，假设项目已保存并验证了对应的 Action。
-
-**① 日常修 bug**
-
-“启动后台，修掉订单列表的分页 bug，跑完单测和构建再交给我。”
+你说：“启动项目，补一个函数，跑完测试和构建再交给我。”
 
 ```text
-Jev     启动依赖与服务，检查就绪           [start-admin-backend]
+Jev      选择已保存的启动 Action → 宿主执行 → 检查服务就绪
   ↓
-主模型  读 issue，定位并修复分页逻辑
+主模型   理解需求 → 修改代码
   ↓
-Jev     跑单测、构建，核对退出码与产物     [test-and-build]
+Jev      选择测试、构建 Action → 宿主执行 → 验证当前产物
   ↓
-主模型  说明修改与验证结果
+主模型   说明改动与结果
 ```
 
-**② CI 红了**
+如果只是“启动项目”，有效 Action 已存在、执行和验收通过，**整个请求可以零次调用主模型**。Jev 本身仍有推理请求。“零主模型调用”不等于没有模型费用。
 
-“CI 的 lint 又挂了，本地复现修一下，确认能过。”
+遇到新问题时，主模型可以把跑通的操作保存为 Action：简单操作是一条命令，复杂操作适合写成脚本。Action 有用途、项目绑定、验收方式和版本凭证。保存与激活分开；实现文件发生变化时重新验证。
+
+## 一个循环，三层能力
+
+| 层 | 负责什么 |
+|---|---|
+| **调度与复用** | Jev 选择 Action、主模型或澄清；参数从有效候选中选择；执行后再次决定继续或结束。可配置主模型路由。 |
+| **上下文与控制** | 技能和工具包按需展示；长日志筛选、旧结果归档；用户约束、风险判断、完成检查、目标续跑、经验记忆。 |
+| **协作与观察** | 原生 DSH 子 Agent、会话 fork、隔离 Git worktree；发现发布、按接收者投递、矛盾保留；独立的人话进度；可选浏览器、诊断和文件变化通知。 |
 
 ```text
-Jev     准备依赖，按 CI 配置复现 lint     [repro-ci-lint]
-  ↓
-主模型  根据报错修改代码
-  ↓
-Jev     重跑 lint，再执行提交前检查       [verify-before-push]
-  ↓
-主模型  解释改动，给出 commit message
+用户输入 ──→ 任务框架 / 中途打断 / 经验召回
+                         ↓
+            DSH 组装会话 + 技能 + 工具
+                         ↓
+              日志准入 / 可恢复的归档
+                         ↓
+                    Jev 调度
+                ↙       ↓       ↘
+            Action    主模型     澄清 / 结束
+                ↘       ↓
+            宿主权限 → 工具执行 → 真实结果
+                         └──────────↺
+
+子 Agent ↔ 共享发现板 ↔ Jev 通信网关
+人话进度 → 用户（不进入工作模型上下文）
 ```
 
-**③ 准备发版**
+Jev 和主模型读取**同一次组装、筛选后的会话与工具记录**。原始工具输出保留在 DSH 事件日志与可检索归档中。每个判断点都可切换 `active / shadow / off`，宿主的明确权限拒绝始终有效。
 
-“走一遍发版流程：版本号、changelog、tag、构建产物。”
-
-```text
-Jev     跑全量回归，检查发版条件          [regression-gate]
-  ↓
-主模型  读合并记录，更新版本号与 CHANGELOG
-  ↓
-Jev     按项目脚本打 tag、构建、校验产物  [cut-release]
-  ↓
-主模型  整理 release notes
-```
-
-**Jev 调度重复操作，主模型处理新问题。** 启动 → 代码修改 → 测试构建的完整交接已在[实验中跑通](reports/developer-workflows-v3/ANALYSIS.md)。如果请求只是“启动项目”或“跑一遍回归”，已有 Action 能覆盖全部工作且满足完成条件时，Jev 可以独立完成，**全程零次主模型调用**。
-
-## 一轮是怎么走的
-
-- **Jev**：决定下一步。读取与主模型相同的已组装会话和工具历史，选择 Action、请求主模型、澄清或结束本次请求。
-- **Action**：留下怎么做。命令或脚本，连同用途、项目绑定和验收方式，跨会话保留；简单操作直接保存命令，复杂行为更适合脚本。
-- **主模型**：解决新问题，积累新操作。写代码、做推理、处理异常，也在任务中主动维护 Action 库。
-
-> 基于 DeepSeek Harness，早期版本优先支持 DSH 0.2.0-rc.1 的 headless 使用。包名和工具前缀保留 `jevaction`。主模型参与后，由它完成最终答复。
-
-```mermaid
-flowchart LR
-    U["任务与会话历史"] --> J{"Jev"}
-    J -->|已有 Action| A["Harness 执行与验收"]
-    J -->|新问题 / 异常| M["主模型"]
-    A --> H["结果回到共同历史"]
-    M -->|工具调用与结果| H
-    H --> J
-    M -.->|保存并验证| K[("Action 库")]
-    K -.->|候选操作| J
-    classDef judge fill:#ede8ff,stroke:#9b8deb,color:#302653
-    classDef model fill:#eef3ff,stroke:#5171ae,color:#162b50
-    class J judge
-    class M model
-```
-
-Jev 选择，代码执行。它只能选择当前可用的操作和参数，实际命令仍经过宿主工具权限与验收。实现发生变化、执行失败，或没有合适的操作时，工作交回主模型。
-
-## Action 怎么留下来
-
-第一次，主模型读取项目，找到可复用的命令或脚本，通过 `jevaction_create` 保存用途、项目绑定和验收方式，再用 `jevaction_validate` 验证并激活。它会主动考虑保存稳定的开发操作，也遵守用户“不保存”的要求。
-
-下一次，Jev 根据当前请求选择 Action 和项目，Harness 补全已保存的执行参数，运行并验收。操作成功不等于整个任务结束：还需要分析、修改或解释，就继续调用主模型。
-
-同一个构建 Action 可以绑定不同项目的命令。实现脚本变化后，旧版本需要复核；测试针对的源码、报表读取的数据变化，则由验收检查当前结果。完整规则见 [Action 规格](docs/ACTION_SPEC.md) 与 [使用场景](docs/ACTION_USAGE.md)。
-
-## 实测
-
-四个重复开发任务：启动、测试构建、本地发布、回滚。所有组获得相同的现成脚本，Action 库从空开始。原生 DSH Loop 在同一最小 headless 宿主中每个任务测一次；JevDo 重复三轮，每轮新建会话、使用相同输入，并保留 Action 库。
-
-| 每组 4 个任务 | 原生 Loop | JevDo 第 1 轮 | 第 2 轮 | 第 3 轮 |
-|---|---:|---:|---:|---:|
-| 主模型调用 | 31 | 33 | **8** | **8** |
-| 无需主模型的任务 | 0/4 | 0/4 | **3/4** | **3/4** |
-| 平均耗时 | 9.54 s | 19.52 s | 6.89 s | 6.64 s |
-| 估算费用（含 Jev） | ¥0.2771 | ¥0.8408 | ¥0.3214 | ¥0.3091 |
-
-表中为自主保存组。后两轮的主模型调用比原生对照减少约 **74%**；明确要求保存的另一组收益较弱。**调用减少还没有转化为总体费用优势**：冷启动需要积累，完整历史的 Jev 请求也有成本。
-
-这些是自建小样本的一次采样，不是公开基准成绩。Jev 曾误选操作，随后由主模型完成任务；最终验收通过不代表每次判断都正确。[完整报告](reports/developer-workflows-v3/REPORT.md) · [结果解释](reports/developer-workflows-v3/ANALYSIS.md) · [原始轨迹](reports/developer-workflows-v3/traces)
-
-## 快速开始
-
-需要 **Node.js 24.14+**。先运行不需要 API 密钥的跨会话复用演示：
+## 运行
 
 ```bash
-git clone https://github.com/yinhong-zhou/jevdo.git
-cd jevdo
+git clone https://github.com/yinhong-zhou/jevdo-harness.git
+cd jevdo-harness
 npm ci
-npm run demo
 ```
 
-接入真实 Jev 与主模型，或替换自己的 DSH 默认 Loop，见 [安装与配置](docs/REFERENCE.md#本地准备)。插件提供 Loop、Action 工具和维护提示；实际执行继续使用宿主工具。
-
-## 文档与开发
-
-[配置与实现参考](docs/REFERENCE.md) · [Action 规格](docs/ACTION_SPEC.md) · [使用场景](docs/ACTION_USAGE.md) · [反馈问题](https://github.com/yinhong-zhou/jevdo/issues)
+复制 `.env.example` 为 `.env`，填写 `TYPESAFE_API_KEY` 和 `DEEPSEEK_API_KEY`，然后：
 
 ```bash
-npm run check
-npm test
-npm run build
+npm run doctor
+npm start -- register my-project /absolute/path/to/project
+npm start -- ask my-project "启动项目，确认就绪"
 ```
 
-当前可学习操作以固定命令和项目绑定为主，任意自由参数、完整 Web UI 和多 Agent 组合兼容性不在已验证范围内。核心入口见 [src/dsh/index.ts](src/dsh/index.ts)，完整实现边界见 [参考文档](docs/REFERENCE.md#第一版边界)。
+本地 CLI 使用一个精简 DSH 宿主，默认启用完整循环。`npm run demo` 是不调用 API 的离线 Action 演示。浏览器、文件监视、诊断命令和缓存保温需要按需配置；缓存保温默认关闭。
 
-## 来源与协议
+**接入现有 DSH**：构建后，在独立 profile 中安装本地 bundle，沿用宿主的模型适配器、工具和权限：
 
-MIT。基于 DeepSeek Harness 的插件机制，并适配其官方 Loop 生命周期代码；上游版权与来源保留在 [第三方声明](THIRD_PARTY_NOTICES.md) 和 [适配代码](src/vendor/dsh-loop)。
+```bash
+npm run build
+dsh --profile jevdo-harness --from-default-profile headless --dump-config
+dsh plugin --profile jevdo-harness add /absolute/path/to/jevdo-harness
+dsh --profile jevdo-harness "检查项目，把适合复用的操作保存为 Action"
+```
+
+DSH 原生启动时从进程环境读取 Jev 密钥。完整配置、原 profile 的 Agent 迁移方式、可选后端见 [配置指南](docs/CONFIGURATION.md)。
+
+## 验证到哪一步了
+
+离线集成测试使用可控判断结果，真实执行 DSH 生命周期、文件操作、命令、Git worktree 和浏览器交互，覆盖各判断点的实际效果。这证明连接和行为，不代表 Jev 在真实任务中的判断准确率。
+
+真实 API 对照使用同一个自建开发项目：原生 DSH、原版 JevDo、整合版各自隔离；插件从空 Action 库开始，重复三轮，原生组只跑一次。另测“启动 → 改代码 → 测试构建”的混合任务。结果、原始记录、费用假设与限制见 [实验报告](reports/unified-v1/ANALYSIS.md)。此前 `developer-workflows-*` 等报告是继承的 **JevDo 历史实验**，不能作为本仓库的新性能结果。
+
+## 范围与来源
+
+- 这是完整判断机制在 DSH 上的整合，首版验证集中在 headless。没有移植 MU 桌面 UI，也不依赖 Pi 运行时。
+- 工具包按配置分组；技能接入原生 DSH registry。归档侧重工具结果，不承诺任意超长会话都能自动适配模型窗口。
+- 子 Agent 的隔离工作区从 Git `HEAD` 创建；父目录未提交改动不会自动复制。补丁交回供审阅，不自动合并。
+- 回退判断提供检查点建议，不自动撤销文件。诊断来自明确配置的检查器；输出监控最多纠正一次，不构成权限保障。
+- 每个判断都有成本。完整整合不会自动比轻量循环更便宜或更快，可用 `shadow` 做自己的对照。
+
+完整来源、适配差异和行为证据见 [迁移矩阵](docs/MIGRATION.md)。感谢 MU 的判断机制与 DeepSeek Harness 的插件基座。MIT 许可；上游版权与来源固定在 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
