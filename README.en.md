@@ -12,6 +12,54 @@ What to do next. Which information to keep. Who needs a finding. When the work i
 
 Built on [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness), combining [JevDo](https://github.com/yinhong-zhou/jevdo)'s Action loop with [MU](https://github.com/qybaihe/mu)'s 35 judgment points. Delivered as a **DSH default Agent Loop replacement plugin**, using the host's tools, permissions and session system.
 
+## A complete handoff
+
+“The CI integration tests are failing. Find and fix the problem, run all checks, and prepare a release if they pass.”
+
+This illustrative scenario assumes verified reproduction, test and build Actions, plus relevant project lessons. Measured results are in [Evaluation](#evaluation).
+
+```text
+User input
+  ↓
+Jev         Frame the task: fix CI, pass checks, prepare a release
+            Recall a previous dependency-drift lesson as a lead to investigate
+  ↓
+Jev         Select an Action: prepare the local environment and reproduce CI
+            Host executes and captures failure logs          [repro-ci-integration]
+  ↓
+Jev         Admit relevant errors to shared history; select the main model
+  ↓
+Main model  Read logs; delegate ORM investigation and CHANGELOG preparation
+Jev         Route subtasks to configured roles and models
+  ↓
+Workers     A checks version changes and reports incompatible migration mappings
+            B reviews merge history in an isolated workspace, returning a CHANGELOG patch
+Jev         Gate findings and deliver by task relevance; retain conflicting evidence
+  ↓
+Main model  Verify the cause, fix the migration, review and apply the CHANGELOG patch
+            Register a stable compatibility-check script as an Action draft
+            Request validation; host executes and verifies before activation
+                                                             [check-schema-compat]
+  ↓
+Jev         If context reaches its threshold, archive older, bulky tool results
+            Protect recent results and key errors; original outputs remain retrievable
+  ↓
+Jev         Select an Action: run all checks on the current code [test-all]
+            Failures go back to the main model for repair and another check
+  ↓
+Jev         Select an Action: build and verify current artifacts and checksums
+            Host executes; results return to shared history  [build-and-verify]
+  ↓
+Main model  Report changes, check results and release readiness from actual evidence
+  ↓
+Jev         Check acceptance before stopping; nudge missing work and an updated report
+Harness     End the turn when completion conditions hold; retain Actions and useful lessons
+```
+
+Throughout the task, Jev also selects progress worth reporting to the human through a separate channel. The scenario connects **Action handoffs, model reasoning, context archival, agent communication, acceptance checks and persistent learning** in one workflow.
+
+Reusable checks and procedures become Actions; unfamiliar failures still need model reasoning. A later request to “run all checks” can finish with **zero main-model calls** when existing Actions cover the work and verification passes. Jev inference still has a cost.
+
 ## Put Jev at the core of the agent loop
 
 **Calling the main model becomes one of Jev's choices.**
@@ -34,19 +82,6 @@ With multiple configured models, Jev can also select a model at task boundaries;
 **Actions turn a successful operation into a reusable capability.**
 
 A command, a startup script, or a test-and-build sequence can become an Action. Authoring instructions and tools let the main model maintain the library proactively; users can also request it explicitly. Each operation has a purpose, project binding, verifier and version evidence. Drafts become reusable only after execution and verification; implementation changes require revalidation. Simple operations stay commands, while complex procedures should use maintained project scripts.
-
-With the corresponding Actions available, a handoff can look like this:
-
-```text
-“Start the project, add a function, then run tests and build.”
-
-Jev          → start Action → host execution → health check
-Main model   → understand the request → edit code
-Jev          → test/build Actions → verify current artifacts
-Main model   → explain changes and results
-```
-
-For a pure repeat request such as “start the project,” valid Actions can finish with **zero main-model calls** once execution and verification succeed. Jev inference still has a cost.
 
 ## Judgment throughout execution
 
