@@ -6,6 +6,7 @@
 
 <p align="center"><strong>Judge first. Model when needed.</strong></p>
 <p align="center">判断先行，模型按需。</p>
+<p align="center">以 Jev 为核心的新一代 Harness 架构。</p>
 <p align="center"><em>Just Jev it.</em></p>
 
 <p align="center">

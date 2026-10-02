@@ -5,6 +5,7 @@
 <h1 align="center">JevDo Harness</h1>
 
 <p align="center"><strong>Judge first. Model when needed.</strong></p>
+<p align="center">A new generation of harness architecture with Jev at its core.</p>
 <p align="center"><em>Just Jev it.</em></p>
 
 <p align="center">
